@@ -206,7 +206,8 @@ const approveBid = async (req, res) => {
     if(error.errors.length != 0){
       return res.status(400).send(error)
     }
-    const userOwnedNft = await userModel.findById(req.user, { approvedBids: true });
+    const userOwnedNft = await userModel.findOne({ metamaskId:req.query.metamaskId }, { approvedBids: true});
+    console.log(userOwnedNft);
     const nftOwner = await nftModel.findById(req.query.id);
     const nftDetail = await nftModel.findOne({ "bids._id": req.query.bidId },{ bids: true });
     if (nftOwner.owner._id.valueOf() == req.user) {
