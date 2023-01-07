@@ -69,20 +69,19 @@ const listUser = async (req, res) => {
 };
 const csvExport = async (req, res) => {
     try {
-        const users = await userModel.find().sort({ created_date: -1 })
-
-        let owned = users[0].owned.length
-        let fields = ['metamaskId', 'name', 'email', 'bio', 'sellCount', 'owned']
-        const csvHeader = await new json2csv({ fields })
-        const csvFile = csvHeader.parse(users)
-        res.setHeader(
-            "Content-disposition",
-            "attachment;filename=users.csv");
-        res.status(200).send(csvFile)
+      const users = await userModel.find().sort({ created_date: -1 })
+  
+      let fields = ['metamaskId', 'name', 'email', 'sellCount']
+      const csvHeader = await new json2csv({fields})
+      const csvFile = csvHeader.parse(users)
+      res.setHeader(
+        "Content-disposition",
+        "attachment;filename=users.csv");
+      res.status(200).send(csvFile)
     } catch (error) {
-        res.status(500).send(error)
+      res.status(500).send(error)
     }
-}
+  }
 const count = async (req, res) => {
     const userCount=await userModel.count();
     const nftCount=await nftModel.count()
