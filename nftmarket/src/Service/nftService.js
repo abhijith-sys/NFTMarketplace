@@ -244,7 +244,7 @@ export function logOut() {
 export async function approveBids(data) {
   console.log(data);
   const datavalue = await axios
-    .put(`${API_URL}/api/nft/bid/approve?bidId=${data.bidid}&id=${data.id}&price=${data.price}`)
+    .put(`${API_URL}/api/nft/bid/approve?bidId=${data.bidid}&id=${data.id}&price=${data.price}&metamaskId=${data.metamaskId}`)
     .then((response) => {
       return response.data;
     });

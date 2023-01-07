@@ -55,7 +55,7 @@ function DetailView(props) {
     const [bidapproveData, setbidapproveData] = useState("");
     const imagehosturl = "http://localhost:8080/";
     const [price,setPrice]=useState("")
-
+    const [trans,setTrans]=useState("")
     const getdata = useCallback(() => {
         if (props.id) {
             localStorage.setItem("nft_id", props.id);
@@ -186,8 +186,8 @@ function DetailView(props) {
             getdata();
         })
     }
-    const approveBid = async (id, price) => {
-        setbidapproveData({ ...bidapproveData, bidid: id, id: getSelectedNfTId(), price: price });
+    const approveBid = async (id, price,metamaskId) => {
+        setbidapproveData({ ...bidapproveData, bidid: id, id: getSelectedNfTId(), price: price ,metamaskId:metamaskId});
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         let contract = new ethers.Contract(
@@ -201,14 +201,14 @@ function DetailView(props) {
         let transaction = await contract.updatePrice(nft.nftId, priceInEther, {
             value: listingPrice,
         });
-        let trans = await transaction.wait();
+        setTrans(await transaction.wait())
         console.log(trans);
 
     };
     useEffect(() => {
-        if (bidapproveData?.bidid)
+        if (bidapproveData?.bidid&&trans)
             approveBids(bidapproveData);
-    }, [bidapproveData])
+    }, [bidapproveData,trans])
 
     const buyTheNft = async () => {
         setSpinner(true);
@@ -509,7 +509,8 @@ function DetailView(props) {
                                                                                             onClick={() => {
                                                                                                 approveBid(
                                                                                                     bids._id,
-                                                                                                    bids.price
+                                                                                                    bids.price,
+                                                                                                    bids.metamaskId
                                                                                                 );
                                                                                             }}
                                                                                         >

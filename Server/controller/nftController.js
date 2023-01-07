@@ -2,6 +2,7 @@ const nftModel = require("../model/nftModel");
 const userModel = require("../model/userModel");
 const { validationResult } = require("express-validator");
 
+
 // List ,search,sort,filter Nft
 const listNft = async (req, res) => {
   let nftDetails = [];
@@ -10,7 +11,7 @@ const listNft = async (req, res) => {
     if (error.errors.length != 0) {
       return res.status(700).send(error)
     }
-    const page = parseInt(req.query.page) - 1 || 0;
+    const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 12;
     const search = req.query.search || "";
     let filter = req.query.filter || "all";
@@ -38,8 +39,6 @@ const listNft = async (req, res) => {
         .find({ nftName: { $regex: search, $options: "i" } }, { bids: false })
         .lean()
         .populate({ path: 'owner', select: 'name profile_photo' })
-        .skip(page * limit)
-        .limit(limit)
         .sort(sortBy)
         .where("status")
         .in([...filter]),
@@ -51,7 +50,9 @@ const listNft = async (req, res) => {
       wishList = req.user ? getWishList(nft.nftName, userFavourite[0].wishlist) : 0;
       nftDetails.push({ nft, cart, wishList })
     })
-    res.send(nftDetails);
+    const hasNext = nftDetails.length > limit
+    let paginatedArray = paginate(nftDetails,limit,page);
+    res.send({docs:paginatedArray,hasNext});
   } catch (error) {
     res.status(500).send({message:error.message});
   }
@@ -77,6 +78,12 @@ function getWishList(nftName, wishList) {
     }
   });
   return wish;
+}
+
+// paginate Array
+function paginate(nftDetails,limit,pageNumber){
+  --pageNumber;
+  return nftDetails.slice(pageNumber*limit,(pageNumber+1)*limit)
 }
 
 // NFT detailed view
@@ -199,7 +206,8 @@ const approveBid = async (req, res) => {
     if(error.errors.length != 0){
       return res.status(400).send(error)
     }
-    const userOwnedNft = await userModel.findById(req.user, { approvedBids: true });
+    const userOwnedNft = await userModel.findOne({ metamaskId:req.query.metamaskId }, { approvedBids: true});
+    console.log(userOwnedNft);
     const nftOwner = await nftModel.findById(req.query.id);
     const nftDetail = await nftModel.findOne({ "bids._id": req.query.bidId },{ bids: true });
     if (nftOwner.owner._id.valueOf() == req.user) {
@@ -207,6 +215,7 @@ const approveBid = async (req, res) => {
         if (bid._id == req.query.bidId) {
           nftDetail.bids[index].status = 1;
           nftDetail.status = 3;
+          nftDetail.price = req.query.price
           nftDetail.save();
           let isPresent = userOwnedNft.approvedBids.includes(bid._id);
           if (isPresent === false) {
