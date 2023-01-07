@@ -261,6 +261,7 @@ const getTopTrendingNftCollection = async (req, res) => {
             "nft.owner.name": 1,
             "nft.owner.profile_photo": 1,
             "nft.owner.sellCount": 1,
+            count:1
           },
         },
         {
