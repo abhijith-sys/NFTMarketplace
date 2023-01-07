@@ -20,7 +20,7 @@ export const Home = (props) => {
 
   const getCreators = () => {
     getTopNfts(20).then((data) => {
-      setNfts(data);
+      setNfts(data.docs);
       
     });
   };

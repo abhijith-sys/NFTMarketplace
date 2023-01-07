@@ -63,6 +63,8 @@ const Navbar = () => {
       Login(signature).then((response) => {
         localStorage.setItem("accessToken", response.accessToken);
         localStorage.setItem("refreshToken", response.refreshToken);
+        localStorage.setItem("username", response.name);
+        
         setaccessToken(localStorage.getItem("accessToken"));
        
         addToFavorite(JSON.parse(localStorage.getItem("wishlist")) || []).then(

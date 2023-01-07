@@ -10,7 +10,8 @@ const Marketplace = (props) => {
 
   const [nfts, setnfts] = useState([]);
   const [limit, setlimit] = useState(8);
-  
+  const [hasnext, sethasnext] = useState(false)
+  const [searchh, setsearch] = useState()
 
   const [Spinner, setSpinner] = useState(false);
 
@@ -28,7 +29,8 @@ const Marketplace = (props) => {
     getTopNfts(limit).then((data) => {
       console.log("nft list data");
       console.log(data);
-      setnfts(data);
+      setnfts(data?.docs);
+      sethasnext(data?.hasNext)
       setSpinner(false);
     });
   };
@@ -39,20 +41,34 @@ const Marketplace = (props) => {
       e.target.scrollHeight - e.target.clientHeight
     ) {
       setlimit(limit + 2);
+      if(hasnext)
       getnfts(limit);
     }
   };
 
   const handleChange = (e) => {
+    // const params = {};
+    setsearch(e.target.value)
+    // params.search = e.target.value;
+   
+  };
+
+  useEffect(() => {
+   if(searchh!==""){
     const params = {};
-    params.search = e.target.value;
+    params.search = searchh;
     getTopNfts(params).then((data) => {
       console.log("nft list data");
       console.log(data);
-      setnfts(data);
+      setnfts(data?.docs);
+      sethasnext(data?.hasNext)
       setSpinner(false);
     });
-  };
+   }else{
+    getnfts()
+   }
+  }, [searchh])
+  
 
 
   return (
@@ -85,7 +101,7 @@ const Marketplace = (props) => {
           favr={true}
           onselect={getselectednft}
           nftdetails={data.nft}
-          username={data?.ownerName ? data.ownerName : "unnamed"}
+          username={(data?.owner?.ownerName) ? (data?.owner?.ownerName) : "unnamed"}
           userprofile={data.profilePicture ? data.profilePicture : "nill"}
           userId={data.userId}
         />

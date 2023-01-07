@@ -239,14 +239,14 @@ export const Card = (props) => {
           <div className={card.artistAvatharIcon}>
             <img
               className={card.artistAvatharIconImg}
-              src={(props?.nftdetails?.owner) ? imagehosturl + props?.nftdetails?.owner?.profile_photo : img1}
+              src={(props?.nftdetails?.owner) ? imagehosturl + props?.nftdetails?.owner?.profile_photo :imagehosturl + props.userprofile}
               alt=""
             />
           </div>
           <div className={card.artistName}>
             <div className="name">
-              {" "}
-              {(props?.nftdetails?.owner)? props.nftdetails?.owner?.name : "creator name"}
+           
+              {props.username? props.username:props.nftdetails?.owner?.name }
             </div>
           </div>
         </div>

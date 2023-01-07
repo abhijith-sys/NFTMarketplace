@@ -12,8 +12,8 @@ export const Discove = () => {
   const getnfts = () => {
     getTopNfts(3).then((data) => {
       console.log("nft list data");
-      console.log(data);
-      setnfts(data);
+      console.log(data?.docs);
+      setnfts(data?.docs);
     });
   };
 

@@ -20,7 +20,7 @@ export const Auction = () => {
 
   const getNft = () => {
     getAuctiondNft().then((response) => {
-      setnft(response);
+      setnft(response.docs);
     });
   };
 

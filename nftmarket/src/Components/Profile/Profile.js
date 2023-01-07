@@ -118,7 +118,6 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-  
     if (
       getSelectedUserId() &&
       getSelectedUserId() !== "" &&
@@ -471,37 +470,8 @@ const Profile = (props) => {
         )}
       </div>
 
-      <div className={pro.selectedContent}>
-        {/* {SelectedTab
-          ? nfts?.map((data) =>
-              (data?.cart ? data?.cart : data?.wishlist)?.map((nftdata) => (
-                <Card
-                  key={nftdata?._id}
-                  showcart={true}
-                  display={data.wishlist ? false : true}
-                  nftdetails={nftdata}
-                  username={data?.name}
-                  userprofile={data?.profile_photo}
-                  refresh={refresh}
-                  wish={data?.wishlist ? true : false}
-                  refreshWish={refrshWishList}
-                />
-              ))
-            )
-          : (nfts&&nfts)?.map((data) =>
-              (data?.created ? data.created : data)?.map((nftdata) => (
-                <Card
-                  key={nftdata?._id}
-                  showcart={false}
-                  nftdetails={nftdata}
-                  username={data?.name}
-                  userprofile={data?.profile_photo}
-                  display={false}
-                />
-              ))
-            )} */}
-        {renderCards(nfts, SelectedTab)}
-      </div>
+      {renderCards(nfts, SelectedTab)}
+
       {displayTotalPrice(nfts)}
     </div>
   );
