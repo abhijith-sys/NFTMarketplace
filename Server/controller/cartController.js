@@ -72,6 +72,8 @@ const getUserCart = async (req, res) => {
               else: "[]",
             },
           },
+          cartTotal: 1,
+
         },
       },
     ]);
