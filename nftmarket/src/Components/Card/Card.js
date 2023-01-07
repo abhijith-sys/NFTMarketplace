@@ -85,9 +85,10 @@ export const Card = (props) => {
   const removeFromCart = (id) => {
     setInCart(false);
     RemoveFromCart(id).then((response) => {
-      if (response.status) {
-        props.refresh();
-      }
+      props.refresh();
+  
+      
+    
     });
   };
 

@@ -64,6 +64,10 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
+    console.log("====================================");
+    console.log("useeffect");
+    console.log(nfts);
+    console.log("====================================");
     console.log(nfts);
   }, [nfts]);
 
@@ -114,22 +118,30 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    if (props.uid !== undefined) {
-      getUserDetails(props.uid);
-      setUserDeatsils(true);
-      props.uid = undefined;
-    } else if (
+    // if (props.uid !== undefined) {
+    //   console.log("condion on");
+    //   getUserDetails(props.uid);
+    //   setUserDeatsils(true);
+    //   // props.uid = undefined;
+    // } else
+    if (
       getSelectedUserId() &&
       getSelectedUserId() !== "" &&
       getSelectedUserId() !== "undefined"
     ) {
+      console.log("condition 2");
+      console.log("====================================");
+      console.log(getSelectedUserId());
+      console.log("====================================");
       getUserDetails(getSelectedUserId());
       setUserDeatsils(false);
     } else {
+      console.log("condition 3");
+      setUserDeatsils(true);
       getuserdata();
       getnfts();
     }
-  }, [props]);
+  }, []);
 
   const createnft = () => {
     navigate("/create");
@@ -137,12 +149,12 @@ const Profile = (props) => {
 
   const getUserDetails = (id) => {
     getUserDetailsWithId(id).then((data) => {
-      console.log("====================================");
-      console.log(" data 1");
-      console.log("====================================");
       console.log(data.docs[0].owner);
       setuserdetails(data.docs[0].owner);
-      // setnfts(data?.docs?data.docs:data)
+      if (!UserDeatsils) setnfts([data.docs]);
+      console.log("api return====================================");
+      console.log(console.log(data.docs));
+      console.log("====================================");
 
       setSelectedTab(false);
     });
@@ -169,7 +181,7 @@ const Profile = (props) => {
     getuserCollectednfts().then((data) => {
       console.log("nft collected data");
       console.log(data.docs);
-      setnfts([data?.docs]);
+      setnfts([data.docs]);
       setSelectedTab(false);
     });
   };
@@ -182,12 +194,19 @@ const Profile = (props) => {
       setSelectedTab(true);
     });
   };
-  useEffect(() => {}, [nfts]);
+  useEffect(() => {
+    console.log("useeffect====================================");
 
-  const refresh = () => {
+    console.log("====================================");
+  }, []);
+
+  const refresh = useCallback(() => {
     getcart();
-  };
+  }, []);
   const refrshWishList = useCallback(() => {
+    console.log("====================================");
+    console.log("refresh");
+    console.log("====================================");
     getWshlist();
   }, []);
 
@@ -220,67 +239,135 @@ const Profile = (props) => {
     }
   }
 
+  function renderCards(nfts, SelectedTab) {
+    if (Array.isArray(nfts)) {
+      return (
+        <div className={pro.selectedContent}>
+          {SelectedTab
+            ? nfts.map((data) =>
+                Array.isArray(data?.cart)
+                  ? data.cart.map((nftdata) => (
+                      <Card
+                        key={nftdata?._id}
+                        showcart={true}
+                        display={data.wishlist ? false : true}
+                        nftdetails={nftdata}
+                        username={data?.name}
+                        userprofile={data?.profile_photo}
+                        refresh={refresh}
+                        wish={data?.wishlist ? true : false}
+                        refreshWish={refrshWishList}
+                      />
+                    ))
+                  : Array.isArray(data?.wishlist)
+                  ? data.wishlist.map((nftdata) => (
+                      <Card
+                        key={nftdata?._id}
+                        showcart={true}
+                        display={data.wishlist ? false : true}
+                        nftdetails={nftdata}
+                        username={data?.name}
+                        userprofile={data?.profile_photo}
+                        refresh={refresh}
+                        wish={data?.wishlist ? true : false}
+                        refreshWish={refrshWishList}
+                      />
+                    ))
+                  : null
+              )
+            : nfts.map((data) =>
+                Array.isArray(data?.created)
+                  ? data.created.map((nftdata) => (
+                      <Card
+                        key={nftdata?._id}
+                        showcart={false}
+                        nftdetails={nftdata}
+                        username={data?.name}
+                        userprofile={data?.profile_photo}
+                        display={false}
+                      />
+                    ))
+                  : Array.isArray(data)
+                  ? data.map((nftdata) => (
+                      <Card
+                        key={nftdata?._id}
+                        showcart={false}
+                        nftdetails={nftdata}
+                        username={data?.name}
+                        userprofile={data?.profile_photo}
+                        display={false}
+                      />
+                    ))
+                  : null
+              )}
+        </div>
+      );
+    }
+    return null;
+  }
+
   return (
     <div className={pro.profile}>
       <label htmlFor="file-input">
         <div className={pro.coverphoto}>
           <div className={pro.coverphotoground}>
-           {UserDeatsils&& <img className={pro.coverphotogroundicon} src={svgprncil} alt="" />}
+            {UserDeatsils && (
+              <img
+                className={pro.coverphotogroundicon}
+                src={svgprncil}
+                alt=""
+              />
+            )}
           </div>
           <img
-            src={`${imagehosturl}${
-              UserDeatsils
-                ? nfts.length > 0
-                  ? nfts[0].cover_photo
-                  : ""
-                : userdetails?.cover_photo
-            }`}
+            src={`${imagehosturl}${userdetails?.cover_photo}`}
             className={pro.image}
             alt="img"
           />
         </div>
       </label>
-     { UserDeatsils&& <input
-        id="file-input"
-        name="file"
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={uploadCoverPhoto}
-      />}
+      {UserDeatsils && (
+        <input
+          id="file-input"
+          name="file"
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={uploadCoverPhoto}
+        />
+      )}
 
       <label htmlFor="profile-input">
         <div className={pro.profilePhoto}>
           <div className={pro.iconbackground}>
-           {UserDeatsils&& <img className={pro.icon} src={svgprncil} alt="" />}
+            {UserDeatsils && (
+              <img className={pro.icon} src={svgprncil} alt="" />
+            )}
           </div>
           <img
             className={pro.profilePhotoImg}
-            src={`${imagehosturl}${
-              UserDeatsils
-                ? nfts.length > 0
-                  ? nfts[0].profile_photo
-                  : ""
-                : userdetails?.profile_photo
-            }`}
+            src={`${imagehosturl}${userdetails?.profile_photo}`}
             alt=""
           />
         </div>
       </label>
-   { UserDeatsils&&  <input
-        id="profile-input"
-        name="file"
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={uploadProfilePhoto}
-      />}
+      {UserDeatsils && (
+        <input
+          id="profile-input"
+          name="file"
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={uploadProfilePhoto}
+        />
+      )}
       <div className={pro.userDetails}>
         <div className={pro.userDetailsALign}>
           <div className={pro.uerDetailsNameFollow}>
             <div className={pro.profileName}>
-              {UserDeatsils? (nfts.length > 0? nfts[0]?.name: "Unnamed")
-                :( userdetails?.name? userdetails?.name: "Unnamed")}
+              { userdetails?.name
+                ? userdetails?.name
+                : "Unnamed"}
             </div>
 
             {/* <div className={pro.totaldescription}>
@@ -300,13 +387,7 @@ const Profile = (props) => {
 
             <div className={pro.bio}>
               <h3 className={pro.bioheding}>Bio</h3>
-              <h4 className={pro.biocontent}>
-                {UserDeatsils
-                  ? nfts.length > 0
-                    ? nfts.bio
-                    : ""
-                  : userdetails?.bio}
-              </h4>
+              <h4 className={pro.biocontent}>{userdetails?.bio}</h4>
             </div>
             <div className={pro.sociallinks}>
               {/* <h3 className={pro.bioheding}>Links</h3>
@@ -330,8 +411,6 @@ const Profile = (props) => {
             </div>
           </div>
           {UserDeatsils ? (
-            <></>
-          ) : (
             <div className={pro.profileFollowbtns}>
               <div className={pro.followbutton} onClick={editprofile}>
                 <h3>Edit Profile</h3>
@@ -343,13 +422,15 @@ const Profile = (props) => {
                 <h3>+Follow</h3>
               </div> */}
             </div>
+          ) : (
+            <></>
           )}
         </div>
       </div>
 
       <hr style={{ width: "92vw" }} />
       <div className={pro.profileDetailedBtns}>
-        {UserDeatsils ? (
+        {!UserDeatsils ? (
           <div id="created" className={pro.collected}></div>
         ) : (
           <>
@@ -398,7 +479,7 @@ const Profile = (props) => {
       </div>
 
       <div className={pro.selectedContent}>
-        {SelectedTab
+        {/* {SelectedTab
           ? nfts?.map((data) =>
               (data?.cart ? data?.cart : data?.wishlist)?.map((nftdata) => (
                 <Card
@@ -414,7 +495,7 @@ const Profile = (props) => {
                 />
               ))
             )
-          : nfts?.map((data) =>
+          : (nfts&&nfts)?.map((data) =>
               (data?.created ? data.created : data)?.map((nftdata) => (
                 <Card
                   key={nftdata?._id}
@@ -425,7 +506,8 @@ const Profile = (props) => {
                   display={false}
                 />
               ))
-            )}
+            )} */}
+        {renderCards(nfts, SelectedTab)}
       </div>
       {displayTotalPrice(nfts)}
     </div>

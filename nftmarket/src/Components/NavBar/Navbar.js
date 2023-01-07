@@ -140,6 +140,7 @@ const Navbar = () => {
   };
 
   const toRanking =()=>{
+    ClearUserId();
     setrankingSelected(true)
     sethomeselected(false)
     setmarketplaceSelected(false)
