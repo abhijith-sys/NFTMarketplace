@@ -215,6 +215,7 @@ const approveBid = async (req, res) => {
         if (bid._id == req.query.bidId) {
           nftDetail.bids[index].status = 1;
           nftDetail.status = 3;
+          nftDetail.price = req.query.price
           nftDetail.save();
           let isPresent = userOwnedNft.approvedBids.includes(bid._id);
           if (isPresent === false) {
