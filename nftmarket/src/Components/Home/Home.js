@@ -138,10 +138,10 @@ export const Home = (props) => {
         </div>
         {spiningCard()}
       </div>
-{/* 
-      <Trending /> */}
+
+      <Trending />
       <Topcreators usid={selecteduser} />
-      {/* <Discove /> */}
+      <Discove />
       <Auction />
     
     </div>

@@ -225,7 +225,7 @@ const Profile = (props) => {
       <label htmlFor="file-input">
         <div className={pro.coverphoto}>
           <div className={pro.coverphotoground}>
-            <img className={pro.coverphotogroundicon} src={svgprncil} alt="" />
+           {UserDeatsils&& <img className={pro.coverphotogroundicon} src={svgprncil} alt="" />}
           </div>
           <img
             src={`${imagehosturl}${
@@ -240,19 +240,19 @@ const Profile = (props) => {
           />
         </div>
       </label>
-      <input
+     { UserDeatsils&& <input
         id="file-input"
         name="file"
         type="file"
         accept="image/*"
         style={{ display: "none" }}
         onChange={uploadCoverPhoto}
-      />
+      />}
 
       <label htmlFor="profile-input">
         <div className={pro.profilePhoto}>
           <div className={pro.iconbackground}>
-            <img className={pro.icon} src={svgprncil} alt="" />
+           {UserDeatsils&& <img className={pro.icon} src={svgprncil} alt="" />}
           </div>
           <img
             className={pro.profilePhotoImg}
@@ -267,14 +267,14 @@ const Profile = (props) => {
           />
         </div>
       </label>
-      <input
+   { UserDeatsils&&  <input
         id="profile-input"
         name="file"
         type="file"
         accept="image/*"
         style={{ display: "none" }}
         onChange={uploadProfilePhoto}
-      />
+      />}
       <div className={pro.userDetails}>
         <div className={pro.userDetailsALign}>
           <div className={pro.uerDetailsNameFollow}>
