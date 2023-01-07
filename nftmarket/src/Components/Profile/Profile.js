@@ -118,12 +118,7 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    // if (props.uid !== undefined) {
-    //   console.log("condion on");
-    //   getUserDetails(props.uid);
-    //   setUserDeatsils(true);
-    //   // props.uid = undefined;
-    // } else
+  
     if (
       getSelectedUserId() &&
       getSelectedUserId() !== "" &&
@@ -365,9 +360,7 @@ const Profile = (props) => {
         <div className={pro.userDetailsALign}>
           <div className={pro.uerDetailsNameFollow}>
             <div className={pro.profileName}>
-              { userdetails?.name
-                ? userdetails?.name
-                : "Unnamed"}
+              {userdetails?.name ? userdetails?.name : "Unnamed"}
             </div>
 
             {/* <div className={pro.totaldescription}>
