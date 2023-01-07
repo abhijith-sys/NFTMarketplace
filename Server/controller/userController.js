@@ -54,6 +54,9 @@ const verifySignature = async (req, res) => {
       process.env.SECRET_MESSAGE + selectedNonce.nonce,
       req.body.verificationMessage
     );
+    if (metamaskId.toLowerCase() !== req.body.metamaskId.toLowerCase()) {
+      return res.status(404).send({ message: "verification failed" });
+    }
     await nonceModel.deleteOne({
       metamaskId: { $regex: req.body.metamaskId, $options: "i" },
     });
@@ -220,15 +223,19 @@ const getUserCollectedNft = async (req, res) => {
     res.status(404).send({ message: error.message });
   }
 };
-const getAllUserCollectedNft = async (req, res) => {
+const getTopTrendingNftCollection = async (req, res) => {
   try {
     const limit = 3;
+    const users = await userModel
+      .find({}, { _id: true })
+      .sort({ sellCount: -1 })
+      .limit(limit)
+      .lean();
     const collectedNft = await nftModel
       .aggregate([
         {
-          $match: {},
+          $match: { owner: { $in: users.map((doc) => doc._id) } },
         },
-
         {
           $lookup: {
             from: "users",
@@ -237,22 +244,27 @@ const getAllUserCollectedNft = async (req, res) => {
             as: "owner",
           },
         },
+
         {
-          $project: {
-            image: true,
-            nftName: true,
-            owned: { $slice: ["$owner", limit] },
-            ownedCount: { $size: "$owner" },
+          $group: {
+            _id: "$owner.name",
+            nft: { $push: "$$ROOT" },
+            count: { $sum: 1 },
           },
         },
         {
           $project: {
-            image: true,
-            nftName: true,
-            profile_photo: true,
-            ownedCount: true,
-            "owned.name": true,
+            "nft._id": 1,
+            "nft.nftId": 1,
+            "nft.nftName": 1,
+            "nft.image": 1,
+            "nft.owner.name": 1,
+            "nft.owner.profile_photo": 1,
+            "nft.owner.sellCount": 1,
           },
+        },
+        {
+          $sort: { "nft.owner.sellCount": -1 },
         },
         {
           $limit: limit,
@@ -393,7 +405,7 @@ module.exports = {
   refreshUserToken,
   getUserCollectedNft,
   getUserCreatedNft,
-  getAllUserCollectedNft,
+  getTopTrendingNftCollection,
   getTopCreators,
   getUserById,
   getUserApprovedBids,

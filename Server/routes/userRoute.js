@@ -10,7 +10,7 @@ const {
   getUserCollectedNft,
   getUserCreatedNft,
   getTopCreators,
-  getAllUserCollectedNft,
+  getTopTrendingNftCollection,
   getUserById,
   getUserApprovedBids,
   addLinks,
@@ -60,7 +60,7 @@ router.get("/getUserCollectedNft", authenticateToken, validateExpression("common
 router.get("/getTopCreators", getTopCreators);
 router.get("/getUserCreatedNft", authenticateToken, validateExpression("commonGet"), getUserCreatedNft
 );
-router.get("/getAllUserCollectedNft", getAllUserCollectedNft);
+router.get("/getTopTrendingNftCollection", getTopTrendingNftCollection);
 router.get("/approvedBids", authenticateToken, getUserApprovedBids)
 router.post("/checkout",authenticateToken,checkOutCart)
 
