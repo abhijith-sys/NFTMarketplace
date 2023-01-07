@@ -337,7 +337,7 @@ const getUserById = async (req, res) => {
   }
 };
 const getUserApprovedBids = async (req, res) => {
-  const user = await userModel.findById(req.user);
+  const user = await userModel.findById(req.user,{approvedBids:true});
   res.send(user.approvedBids);
 };
 
