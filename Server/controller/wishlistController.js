@@ -43,6 +43,7 @@ const getUserWishlist = async (req, res) => {
           "wishlist.bids": 1,
           "wishlist.status": 1,
           "wishlist.price": 1,
+          "wishlist.owner._id": 1,
           "wishlist.owner.name": 1,
           "wishlist.owner.profile_photo": 1,
         },

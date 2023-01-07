@@ -46,6 +46,7 @@ const getUserCart = async (req, res) => {
           "cart.price": 1,
 
           cartTotal: { $sum: "$cart.price" },
+          "cart.owner._id": 1,
           "cart.owner.name": 1,
           "cart.owner.profile_photo": 1,
         },

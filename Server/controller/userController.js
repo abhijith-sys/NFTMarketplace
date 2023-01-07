@@ -58,7 +58,10 @@ const verifySignature = async (req, res) => {
       metamaskId: { $regex: req.body.metamaskId, $options: "i" },
     });
     const selectedUser = await userModel
-      .findOne({ metamaskId: { $regex: metamaskId, $options: "i" } })
+      .findOne(
+        { metamaskId: { $regex: metamaskId, $options: "i" } },
+        { metamaskId: true }
+      )
       .lean();
 
     if (selectedUser === null) {
@@ -209,7 +212,7 @@ const getUserCollectedNft = async (req, res) => {
     const ownedValue = await nftModel.paginate(query, {
       page: page || 1,
       limit: limit || 5,
-      populate:"owner",
+      populate: "owner",
       lean: true,
     });
     res.send(ownedValue);
@@ -247,7 +250,7 @@ const getAllUserCollectedNft = async (req, res) => {
             image: true,
             nftName: true,
             profile_photo: true,
-            ownedCount:true,
+            ownedCount: true,
             "owned.name": true,
           },
         },
@@ -328,7 +331,7 @@ const getUserById = async (req, res) => {
     const ownedValue = await nftModel.paginate(query, {
       page: page || 1,
       limit: limit || 5,
-      populate:"owner",
+      populate: "owner",
       lean: true,
     });
     res.send(ownedValue);
@@ -337,7 +340,7 @@ const getUserById = async (req, res) => {
   }
 };
 const getUserApprovedBids = async (req, res) => {
-  const user = await userModel.findById(req.user,{approvedBids:true});
+  const user = await userModel.findById(req.user, { approvedBids: true });
   res.send(user.approvedBids);
 };
 
@@ -367,20 +370,18 @@ const addLinks = async (req, res) => {
 
 const checkOutCart = async (req, res) => {
   try {
-    const userCart = await userModel.findById(req.user, { cart: true })
-    userCart.cart.forEach(async cart=>{
-      const nft=await nftModel.findById(cart,{ owner:true })
-      nft.owner=req.user;
-      nft.save()
-    })
-    await userModel.updateOne({_id:req.user},{ $set:{"cart":[]}})
-    res.send(userCart)
+    const userCart = await userModel.findById(req.user, { cart: true });
+    userCart.cart.forEach(async (cart) => {
+      const nft = await nftModel.findById(cart, { owner: true });
+      nft.owner = req.user;
+      nft.save();
+    });
+    await userModel.updateOne({ _id: req.user }, { $set: { cart: [] } });
+    res.send(userCart);
   } catch (error) {
-     res.status(404).send(error.message)
+    res.status(404).send(error.message);
   }
-}
-
-
+};
 
 module.exports = {
   getNonce,
@@ -397,5 +398,5 @@ module.exports = {
   getUserById,
   getUserApprovedBids,
   addLinks,
-  checkOutCart
+  checkOutCart,
 };
