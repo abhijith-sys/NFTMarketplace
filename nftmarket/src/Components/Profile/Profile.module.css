@@ -1,0 +1,368 @@
+.profile {
+  width: 100%;
+}
+
+.profilePhoto {
+  cursor: pointer;
+  background-color: aquamarine;
+  width: 120px;
+  height: 120px;
+  position: relative;
+  left: 281px;
+  top: -61px;
+  border-radius: 20px;
+  border: 2px solid black;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+}
+.profilePhotoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.profileName {
+  letter-spacing: 0px;
+  line-height: 56.1px;
+  margin-top: -1px;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+  width: 510px;
+  font-size: 51px;
+  font-style: normal;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.image {
+  height: 350px;
+  width: 100%;
+}
+
+.coverphoto {
+  cursor: pointer;
+  width: 100%;
+  height: 350px;
+  background-color: aqua;
+}
+
+.uerDetailsNameFollow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.userDetails {
+  /* padding-left: 15%;
+  padding-right: 15%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.userDetailsALign {
+  display: flex;
+}
+.profileFollowbtns {
+  margin-left: auto;
+  display: flex;
+  gap: 50px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.totaldescription {
+  display: flex;
+}
+.bio {
+  padding-right: 10%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.bioheding {
+  color: #858584;
+  font-size: 26px;
+  letter-spacing: 0.037em;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+}
+
+.biocontent {
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  max-width: 400px;
+
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.line {
+  width: "90vw";
+}
+.followbutton {
+  cursor: pointer;
+  background-color: #2b2b2b;
+  border: 2px solid #a259ff;
+  border-radius: 20px;
+  color: #ffffff;
+  width: 200px;
+  height: 60px;
+  font-size: 17px;
+  letter-spacing: 0.025em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.profileDetailedBtns {
+  display: flex;
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 60px;
+}
+.created {
+  cursor: pointer;
+  width: 30%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.051em;
+  line-height: 1.4;
+
+  /* border-bottom: none; */
+  padding-top: 10px;
+}
+
+.Cart {
+  cursor: pointer;
+  text-align: center;
+  width: 30%;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.051em;
+  line-height: 1.4;
+  padding-top: 10px;
+}
+
+.created > h5,
+.collected > h5,
+.Cart > h5 {
+  margin: 0;
+}
+.created,
+.Cart,
+.collected {
+  color: #858584;
+}
+.owned {
+  cursor: pointer;
+  width: 30%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.051em;
+  line-height: 1.4;
+  padding-top: 10px;
+}
+
+.collected {
+  cursor: pointer;
+  text-align: center;
+  width: 30%;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.051em;
+  line-height: 1.4;
+  padding-top: 10px;
+}
+
+.selected{
+  cursor: pointer;
+  text-align: center;
+  width: 30%;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.051em;
+  line-height: 1.4;
+  padding-top: 10px;
+  border-bottom:3px solid #858584 ;
+}
+.selected > h5 {
+  margin: 0;
+}
+
+.icon {
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 48px;
+  top: 49px;
+}
+.profilePhoto:hover .iconbackground {
+  display: block;
+}
+.profilePhoto:hover {
+  transform: scale(0.95);
+}
+.iconbackground {
+  display: none;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(162.00005114078522, 89.00000989437103, 255, 0) 0%,
+    #dfdde9ad 100%
+  );
+}
+.coverphotoground {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(162.00005114078522, 89.00000989437103, 255, 0) 0%,
+    #dfdde9ad 100%
+  );
+}
+
+.coverphotogroundicon {
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 50%;
+  top: 74%;
+}
+
+.coverphoto:hover .coverphotoground {
+  display: block;
+}
+
+.selectedContent {
+  width: 100%;
+  /* height: 115vh; */
+  padding-bottom: 40px;
+  justify-content: center;
+  background-color: #3b3b3b;
+  display: flex;
+  align-items: flex-start;
+  float: left;
+  flex-wrap: wrap;
+  padding-top: 70px;
+  gap: 40px;
+  overflow: scroll;
+  border-bottom: 2px solid black;
+}
+
+.communitylogos {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 30px;
+}
+.totalDescription {
+  padding-left: 40%;
+  display: flex;
+}
+
+.totalNumbers {
+  font-weight: 700;
+  font-size: 27px;
+}
+.auctionDesc {
+  font-size: 24px;
+  font-weight: 400;
+}
+.setBorder {
+  text-align: center;
+  width: 30%;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.051em;
+  line-height: 1.4;
+  padding-top: 10px;
+  border-bottom: 3px solid #858584;
+}
+.CartTotal {
+  text-align: center;
+}
+.Total {
+  display: flex;
+}
+.totalpriceheadingCart {
+  font-size: 26px;
+  line-height: 0.2;
+  letter-spacing: 0.054em;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.btn {
+  gap: 12px;
+  background-color: #a259ff;
+  color: white;
+  width: 200px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 15px;
+  font-size: 19px;
+  line-height: 25px;
+  letter-spacing: 0.63px;
+  font-weight: 500;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  border: none;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+}
+
+.alignChekout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20%;
+}
+@media screen and (max-width: 879px) {
+  .userDetailsALign {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .profileFollowbtns {
+    margin-left: 0px;
+  }
+  .profilePhoto {
+    left: 30%;
+  }
+  .profileName {
+    width: fit-content;
+    font-size: 36px;
+  }
+ 
+  .totalNumbers {
+    font-size: 21px;
+    line-height: 0.9;
+  }
+  .auctionDesc {
+    line-height: 0.9;
+    font-size: 14px;
+  }
+  .alignChekout {
+    flex-direction: column;
+  }
+}

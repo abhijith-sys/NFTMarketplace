@@ -1,0 +1,29 @@
+.aligncardwidth {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  gap: 50px;
+  height: 100px;
+  padding-bottom: 0px;
+  overflow: hidden;
+}
+
+.avatherimagewidth {
+  width: 70px;
+  height: 70px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  padding-left: 0px;
+}
+.first {
+  display: flex;
+  gap: 10px;
+}
+
+.alignright{
+    display: flex;
+    align-items: flex-end;
+}
+

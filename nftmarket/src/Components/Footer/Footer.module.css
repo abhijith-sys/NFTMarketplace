@@ -1,0 +1,130 @@
+.footerAlign {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  background-color: #3b3b3b;
+  flex-wrap: wrap;
+}
+.footer {
+  background-color: #3b3b3b;
+  display: flex;
+
+  gap: 50px;
+  padding: 29px;
+  flex-wrap: wrap;
+}
+
+.community {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 370px;
+}
+
+.explore {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.joinEmail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.communityHeading {
+  cursor: pointer;
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: 0.042em;
+  line-height: 1.3;
+}
+.communityLogos {
+  display: flex;
+  gap: 20px;
+}
+
+.communityDescription {
+  cursor: pointer;
+  color: #bdbdbd;
+  letter-spacing: 0.056em;
+  font-size: 15px;
+  font-weight: 300;
+}
+.inputboxEmail {
+  border-radius: 20px;
+  height: 50px;
+  width: 450px;
+  border: none;
+  padding-left: 20px;
+}
+
+.inputboxEmail::placeholder {
+  margin-left: 10px;
+  line-height: 1.5em;
+  font-size: 15px;
+  /* text-align: center; */
+}
+
+.emailSubmitBtn {
+  cursor: pointer;
+  position: relative;
+  top: -51px;
+  left: 321px;
+  background-color: #a259ff;
+  width: 150px;
+  border-radius: 20px;
+  text-align: center;
+  padding-top: 20px;
+  height: 30px;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+}
+.emailSubmitBtn:hover {
+  transform: scale(0.95);
+}
+
+.emailSubmitBtnTxt {
+  margin: 0px;
+  line-height: 0.7;
+  letter-spacing: 0.033em;
+  font-weight: 500;
+  font-size: 15px;
+}
+@media screen and (max-width: 1147px) {
+  .footer {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 830px) {
+  /* .footer{
+    padding-left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    float: left;
+  } */
+  .joinEmail {
+    padding-left: 0%;
+    display: flex;
+    justify-content: center;
+    float: left;
+    width: 100%;
+  }
+  .inputboxEmail {
+    width: 300px;
+  }
+  .emailSubmitBtn {
+    top: 0px;
+    left: 0px;
+    width: 315px;
+  }
+
+  .emailSubField {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

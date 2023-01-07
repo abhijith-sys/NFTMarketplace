@@ -1,0 +1,329 @@
+.discoverTrends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+.discoverHeading {
+  padding-left: 25px;
+  width: 1114.05px;
+}
+.topcreatorsContentBottom{
+display: flex;
+}
+.discoverTrendsBtn {
+  cursor: pointer;
+  background-color: #2b2b2b;
+  border: 2px solid #a259ff;
+  border-radius: 20px;
+  color: #ffffff;
+  width: 200px;
+  height: 60px;
+  font-size: 17px;
+  letter-spacing: 0.025em;
+  font-weight: 500;
+}
+
+.discoverTrendsBtns {
+  cursor: pointer;
+  width: 69%;
+  display: flex;
+  padding-left: 20px;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.trendingCards {
+  padding-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: -40px;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.trendingCard {
+  align-items: flex-start;
+  background-color: #3b3b3b;
+  border: 1px none;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  height: auto;
+
+  width: 322px;
+  position: relative;
+  margin-left: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+}
+
+.trendingCard:hover {
+  transform: scale(0.95);
+}
+
+.trendingCardImg {
+  cursor: pointer;
+  align-self: stretch;
+  background-color: transparent;
+  height: 296px;
+  min-width: 340px;
+  mix-blend-mode: normal;
+  object-fit: cover;
+  position: relative;
+}
+
+.trendingCardContent {
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: transparent;
+  border: 1px none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: auto;
+  padding: 20px 30px 25px;
+  position: relative;
+}
+
+.artistInfo {
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: transparent;
+  border: 1px none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: auto;
+  position: relative;
+}
+
+.artName {
+  align-self: stretch;
+  background-color: transparent;
+
+  margin-top: -1px;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 10px;
+  letter-spacing: 0.86px;
+}
+
+.artistAvatharInfo {
+  cursor: pointer;
+  align-items: flex-start;
+  align-self: stretch;
+  background-color: transparent;
+  border: 1px none;
+  display: flex;
+  gap: 12px;
+  height: auto;
+  position: relative;
+}
+
+.artistAvatharIcon {
+  cursor: pointer;
+  align-items: flex-start;
+  background-color: transparent;
+  border: 1px none;
+  display: flex;
+  gap: 10px;
+  height: auto;
+  mix-blend-mode: normal;
+  position: relative;
+  width: fit-content;
+}
+
+.artistAvatharIconImg {
+  background-color: transparent;
+  height: 24px;
+  left: 0px;
+  mix-blend-mode: normal;
+  object-fit: cover;
+  position: absolute;
+  top: 0px;
+  width: 24px;
+  border-radius: 50%;
+}
+
+.artistName {
+  padding-top: 3px;
+  padding-left: 20px;
+  letter-spacing: 0.074em;
+  font-size: 17px;
+}
+
+.priceAndBid {
+  display: flex;
+}
+
+.bid {
+  align-self: flex-end;
+  padding-left: 100px;
+}
+
+.priceTitle {
+  letter-spacing: 0.012em;
+  line-height: 1.6;
+  font-size: 15px;
+  color: #626261;
+  gap: 10px;
+}
+
+.priceValue {
+  font-weight: 300;
+  letter-spacing: 0.034em;
+  line-height: 1.6;
+}
+
+.bidTitle {
+  gap: 10px;
+  letter-spacing: 0.012em;
+  line-height: 1.6;
+  font-size: 15px;
+  color: #626261;
+}
+.topcreatorsHeadingOne {
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 0.047em;
+  padding: 10px;
+}
+
+.topcreatorsDescriptionOne {
+  padding: 10px;
+  font-size: 23px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.053em;
+}
+
+
+
+.topcreatorsBtns {
+  width: 450px;
+  display: flex;
+  padding-left: 20px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+}
+
+.topcreatorBtn {
+  background-color: #2b2b2b;
+  border: 2px solid #a259ff;
+  border-radius: 20px;
+  color: #ffffff;
+  width: 200px;
+  height: 60px;
+  font-size: 17px;
+  letter-spacing: 0.025em;
+  font-weight: 500;
+}
+
+.topcreatorsBtns:hover {
+  transform: scale(0.95);
+}
+
+@media screen and (max-width: 830px) {
+  .discoverTrends {
+    padding-left: 0%;
+    height: 84vh;
+  }
+
+  .discoverHeading {
+    padding-left: 0px;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+ 
+
+  .discoverTrendsBtns {
+    padding-left: 0px;
+    width: 327px;
+    justify-content: left;
+  }
+
+  .discoverTrendsBtn {
+    width: 315px;
+    height: 60px;
+  }
+
+  .trendingCard {
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    fill: backwards;
+    min-width: 350px;
+  }
+  .trendingCards {
+    overflow: hidden;
+  }
+  .topcreatorsHeadingOne {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 0.047em;
+    padding: 10px;
+    width: 307px;
+  }
+  .topcreatorsContentBottom {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    max-width: 327px;
+    justify-content: space-between;
+  }
+  .topcreatorsDescriptionOne {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.053em;
+  }
+  .topcreatorsBtns {
+    width: 290px;
+    display: flex;
+    padding-left: 0px;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    fill: backwards;
+  }
+  .topcreatorsHeading {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .topcreatorBtn {
+    width: 290px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .trendingCards {
+    gap: 0px;
+  }
+
+  .trendingCard {
+    width: 300px;
+  }
+
+  .discoverHeading {
+    width: auto;
+    /* min-width: 900px; */
+  }
+}

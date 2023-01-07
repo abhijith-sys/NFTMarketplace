@@ -1,0 +1,87 @@
+.editProfileForm {
+  color: white;
+  width: 100%;
+  gap: 30px;
+  /* height: 80vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.editform {
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.heading {
+  font-size: 39px;
+  letter-spacing: 0.066em;
+  font-weight: 600;
+  margin: 0px;
+  padding: 0px;
+}
+
+.formlabel {
+  font-size: 19px;
+  letter-spacing: 0.015em;
+  font-weight: 500;
+}
+
+.profileinput {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: medium none;
+  color: white;
+  font-size: inherit;
+  line-height: inherit;
+  min-height: inherit;
+  max-height: 150px;
+  min-width: 200px;
+  max-width: 263px;
+}
+
+.profileinput::placeholder {
+  color: rgb(138, 147, 155);
+}
+
+.inputfieldoutline {
+  cursor: text;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  border: 2px solid rgb(76, 80, 92);
+  color: rgb(255, 255, 255);
+  width: 100%;
+  padding: 12px;
+  min-width: 251px;
+  font-size: 16px;
+  flex-grow: inherit;
+}
+.save {
+  cursor: pointer;
+  background-color: #a259ff;
+  border-radius: 20px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 60px;
+  font-size: 21px;
+  letter-spacing: 0.071em;
+  font-weight: 500;
+}
+
+.err {
+  color: red;
+}
+
+
+@media screen and (max-width: 830px){
+  .profileinput{
+    max-width: 234px;
+  }
+}

@@ -1,0 +1,397 @@
+.homePage {
+  color: white;
+  display: flex;
+  padding-bottom: 50px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.description {
+  padding-top: 60px;
+  padding-left: 50px;
+}
+
+.heading {
+  background-image: url(../../Assets/moving-formation\(1\).gif);
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+
+  background-color: transparent;
+  flex: 1;
+  font-size: 65px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0px;
+  line-height: 73.7px;
+  margin-top: -1px;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: left;
+  width: 410px;
+}
+
+.headingDescription {
+  padding-top: 30px;
+  /* padding-left: 40%; */
+  color: #ffffff;
+  background-color: transparent;
+  letter-spacing: 0px;
+  line-height: 35.2px;
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+}
+.getstartBtn {
+  /* padding-left: 40%; */
+  padding-top: 30px;
+}
+.btn {
+  gap: 12px;
+  background-color: #a259ff;
+  color: white;
+  width: 200px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 15px;
+  font-size: 19px;
+  line-height: 25px;
+  letter-spacing: 0.63px;
+  font-weight: 500;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  border: none;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+}
+
+.btn:hover {
+  transform: scale(0.95);
+}
+
+.nftDemoImage {
+  padding-top: 60px;
+  padding-left: 40px;
+}
+
+.imageTag {
+  background-color: #3b3b3b;
+  width: 400px;
+  height: 450px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 10px;
+  /* box-shadow: 8px 8px 10px rgba(0,0,0,0.5); */
+  transition: transform 1s;
+  animation-name: rotate;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes rotate {
+  0% {
+    /* background-color: violet; */
+    transform: rotateY(0deg);
+  }
+  15% {
+    /* background-color: indigo; */
+  }
+  30% {
+    /* background-color: blue; */
+  }
+  45% {
+    /* background-color: rgb(97, 221, 72); */
+  }
+  60% {
+    /* background-color: yellow; */
+  }
+  75% {
+    /* background-color: orange; */
+  }
+  90% {
+    /* background-color: red; */
+  }
+  100%{
+    transform: rotateY(30deg);
+  }
+}
+
+.img {
+  cursor: pointer;
+  width: 100%;
+  height: 370px;
+  border-radius: 20px;
+}
+
+.avatharDetails {
+  display: flex;
+  padding-top: 10px;
+}
+
+.avatharName {
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.totalsalesDetails {
+  /* text-align: left; */
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+.salesDescription {
+  margin: 0px;
+  padding-left: 10px;
+  color: #747474;
+}
+
+.avatharImg {
+  cursor: pointer;
+  width: 60px;
+  border-radius: 50%;
+  height: 60px;
+}
+
+.totalDescription {
+  /* padding-left: 40%; */
+  display: flex;
+}
+
+.totalNumbers {
+  font-weight: 700;
+  font-size: 27px;
+}
+
+.auctions {
+  padding-left: 40px;
+}
+
+.auctionDesc {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.artists {
+  padding-left: 40px;
+}
+.rcket {
+  position: relative;
+  z-index: 1;
+  left: 37px;
+  top: 5px;
+}
+
+/* tablet view */
+@media screen and (max-width: 1280px) {
+  .description {
+    width: 330px;
+  }
+
+  .heading {
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 600;
+  }
+  .headingDescription {
+    font-size: 19px;
+    line-height: 31px;
+  }
+  .auctionDesc {
+    font-size: 17px;
+    line-height: 1;
+    letter-spacing: 0.001em;
+  }
+  .totalNumbers {
+    font-size: 23px;
+    line-height: 1.1;
+  }
+  .imageTag {
+    width: 270px;
+    height: 351px;
+  }
+  .img {
+    height: 278px;
+  }
+}
+/* mobile view */
+@media screen and (max-width: 830px) {
+  .homePage {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .description {
+    width: 100%;
+    padding-top: 60px;
+    padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .heading {
+    padding-left: 10%;
+    padding-right: 10%;
+
+    background-color: transparent;
+    flex: 1;
+    font-style: normal;
+    margin-top: -1px;
+    text-align: left;
+    width: 282px;
+    font-size: 30px;
+    line-height: 47px;
+    letter-spacing: 0.56px;
+    font-weight: 500;
+  }
+
+  .headingDescription {
+    width: 282px;
+    padding-top: 30px;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: #ffffff;
+    background-color: transparent;
+    line-height: 35.2px;
+    text-align: left;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: -0.84px;
+  }
+
+  .getstartBtn {
+    width: 282px;
+    padding-left: 0px;
+    padding-top: 30px;
+  }
+
+  .btn {
+    gap: 12px;
+    background-color: #a259ff;
+    color: white;
+    width: 263px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 19px;
+    line-height: 25px;
+    letter-spacing: 0.63px;
+    font-weight: 500;
+    mix-blend-mode: normal;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    border: none;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    fill: backwards;
+  }
+
+  .btn:hover {
+    transform: scale(0.95);
+  }
+
+  .nftDemoImage {
+    padding-top: 60px;
+    padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .imageTag {
+    transition: all 3s;
+    transition-timing-function: ease-in-out;
+    background-color: #3b3b3b;
+    width: 330px;
+    height: 437px;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 10px;
+  }
+
+  .imageTag:hover {
+    transform: rotate(1080deg);
+  }
+
+  .img {
+    width: 100%;
+    height: 370px;
+    border-radius: 20px;
+  }
+
+  .avatharDetails {
+    display: flex;
+    padding-top: 10px;
+  }
+
+  .avatharName {
+    padding: 5px;
+    padding-top: 0px;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .totalsalesDetails {
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+
+  .salesDescription {
+    margin: 0px;
+    padding-left: 10px;
+    color: #747474;
+  }
+
+  .avatharImg {
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+  }
+
+  .totalDescription {
+    padding-left: 0%;
+    display: flex;
+    width: 282px;
+  }
+
+  .totalNumbers {
+    font-weight: 700;
+    font-size: 22px;
+  }
+
+  .auctions {
+    padding-left: 40px;
+  }
+
+  .auctionDesc {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .artists {
+    padding-left: 40px;
+  }
+  .rcket {
+    top: 40px;
+  }
+}
