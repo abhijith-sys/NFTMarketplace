@@ -16,23 +16,23 @@ import {
 import carticon from "../../Assets/carticonsssssssssss.png";
 import { cartcoundvalues } from "../Router/Router";
 import Sidebar from "../sidebar/Sidebar";
-import bellIcon from "../../Assets/bell-3-64.ico"
+import bellIcon from "../../Assets/bell-3-64.ico";
 
 const Navbar = () => {
- const [sidebar, setsidebar] = useState(false)
+  const [sidebar, setsidebar] = useState(false);
   const [dropdownm, setdropdown] = useState(false);
   const navigate = useNavigate();
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [accessToken, setaccessToken] = useState(
     localStorage.getItem("accessToken")
   );
-const [count, setfirst] = useContext(cartcoundvalues);
+  const [count, setfirst] = useContext(cartcoundvalues);
   const [signature, setsignature] = useState(null);
   const [homeselected, sethomeselected] = useState(false);
   const [marketplaceSelected, setmarketplaceSelected] = useState(false);
   const [rankingSelected, setrankingSelected] = useState(false);
   const [cart, setcart] = useState(0);
-
+const [onProfileclick, setonProfileclick] = useState(false)
   const web3Handler = async () => {
     if (typeof window.ethereum == "undefined") {
       console.log("MetaMask is not installed");
@@ -108,14 +108,15 @@ const [count, setfirst] = useContext(cartcoundvalues);
   }, [account]);
 
   const toprofile = () => {
-    setsidebar(!sidebar)
+    setsidebar(!sidebar);
     sethomeselected(false);
     setmarketplaceSelected(false);
     setrankingSelected(false);
     localStorage.removeItem("nft_id");
     ClearUserId();
     setUserId(undefined);
-    navigate("/userprofile");
+    setonProfileclick(!onProfileclick)
+    // navigate("/userprofile");
   };
 
   const tohome = () => {
@@ -153,141 +154,149 @@ const [count, setfirst] = useContext(cartcoundvalues);
     setmarketplaceSelected(false);
     navigate("/ranking");
   };
-  const tocart =()=>{
+  const tocart = () => {
     ClearUserId();
     setrankingSelected(true);
     sethomeselected(false);
     setmarketplaceSelected(false);
     navigate("/cart");
-  }
+  };
 
-  const toNofication=()=>{
+  const toNofication = () => {
     ClearUserId();
     setrankingSelected(true);
     sethomeselected(false);
     setmarketplaceSelected(false);
     navigate("/notification");
-  }
+  };
 
   return (
     <>
-    <div style={{width:"100%",height:"100px"}}>
-    <div>
-    
-      <div className={stl.navbar}>
-        <div className={stl.logo} onClick={tohome}>
-          <img
-            style={{ height: "30px", width: "40px" }}
-            src={nfticon}
-            alt="logo"
-          />
-          <h2
-            className={`${stl.nftheading} ${homeselected ? stl.selected : ""}`}
-          >
-            NFT Marketplace
-          </h2>
-        </div>
-        <div className={stl.menus}>
-          {accessToken ? (
-            <div className={stl.SignUp}>
-              <button className={stl.signUpButton} onClick={toprofile}>
-                {" "}
-                <img className={stl.profileicon} src={profileicon} alt="" />
-                {" " + account.slice(0, 5) + "..."}
-              </button>
+      <div style={{ width: "100%", height: "100px" }}>
+        <div>
+          <div className={stl.navbar}>
+            <div className={stl.logo} onClick={tohome}>
+              <img
+                style={{ height: "30px", width: "40px" }}
+                src={nfticon}
+                alt="logo"
+              />
+              <h2
+                className={`${stl.nftheading} ${
+                  homeselected ? stl.selected : ""
+                }`}
+              >
+                NFT Marketplace
+              </h2>
             </div>
-          ) : (
-            <div className={stl.SignUp}>
-              <button className={stl.signUpButton} onClick={web3Handler}>
-                <img className={stl.profileicon} src={profileicon} alt="" />{" "}
-                Connect
-              </button>
+            <div className={stl.menus}>
+              {accessToken ? (
+                <div className={stl.SignUp}>
+                  <button className={stl.signUpButton} onClick={toprofile}>
+                    {" "}
+                    <img className={stl.profileicon} src={profileicon} alt="" />
+                    {" " + account.slice(0, 5) + "..."}
+                  </button>
+                </div>
+              ) : (
+                <div className={stl.SignUp}>
+                  <button className={stl.signUpButton} onClick={web3Handler}>
+                    <img className={stl.profileicon} src={profileicon} alt="" />{" "}
+                    Connect
+                  </button>
+                </div>
+              )}
+              {accessToken ? (
+                <div className={stl.cart} onClick={tocart}>
+                  <div className={stl.cartcount}>{count} </div>
+                  <img src={carticon} alt="" className={stl.carticon} />
+                </div>
+              ) : (
+                <></>
+              )}
+              {accessToken ? (
+                <div className={stl.cart} onClick={toNofication}>
+                  <div className={stl.cartcount}>{count} </div>
+                  <img src={bellIcon} alt="" className={stl.carticon} />
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {accessToken ? (
+                <div className={stl.ranking} onClick={logout}>
+                  logout
+                </div>
+              ) : (
+                <></>
+              )}
+
+              <div
+                className={`${stl.ranking} ${
+                  rankingSelected ? stl.selected : ""
+                }`}
+                onClick={toRanking}
+              >
+                Ranking
+              </div>
+              <div
+                className={`${stl.marketplace} ${
+                  marketplaceSelected ? stl.selected : ""
+                }`}
+                onClick={toMarket}
+              >
+                Marketplace
+              </div>
             </div>
-          )}
-          {accessToken ? (
-            <div className={stl.cart} onClick={tocart} >
-             <div className={stl.cartcount}>{count} </div> 
-              <img src={carticon} alt="" className={stl.carticon} />
+            <div className={stl.burgerIcon} onClick={dropdown}>
+              <img src={bricon} alt="menu" />
             </div>
-          ) : (
-            <></>
-          )}
-           {accessToken ? (
-            <div className={stl.cart} onClick={toNofication} >
-             <div className={stl.cartcount}>{count} </div> 
-              <img src={bellIcon} alt="" className={stl.carticon} />
+          </div>
+
+          {dropdownm ? (
+            <div id={stl.dropdowm} className={stl.dropdowm}>
+              <div className={stl.marketplace} onClick={toMarket}>
+                Marketplace
+              </div>
+              <hr style={{ width: "92vw" }} />
+              {accessToken ? (
+                <div className={stl.SignUp}>
+                  <div className={stl.ranking} onClick={toprofile}>
+                    profile
+                  </div>
+                </div>
+              ) : (
+                <div className={stl.SignUp}>
+                  <div className={stl.ranking} onClick={web3Handler}>
+                    Connect
+                  </div>
+                </div>
+              )}
+
+              {accessToken ? (
+                <>
+                  <hr style={{ width: "92vw" }} />
+                  <div className={stl.ranking} onClick={logout}>
+                    logout
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+              <hr style={{ width: "92vw" }} />
             </div>
           ) : (
             <></>
           )}
 
-          {accessToken ? (
-            <div className={stl.ranking} onClick={logout}>
-              logout
-            </div>
-          ) : (
-            <></>
-          )}
-
-          <div
-            className={`${stl.ranking} ${rankingSelected ? stl.selected : ""}`}
-            onClick={toRanking}
-          >
-            Ranking
-          </div>
-          <div
-            className={`${stl.marketplace} ${
-              marketplaceSelected ? stl.selected : ""
-            }`}
-            onClick={toMarket}
-          >
-            Marketplace
-          </div>
-        </div>
-        <div className={stl.burgerIcon} onClick={dropdown}>
-          <img src={bricon} alt="menu" />
+          {/* {sidebar&&<Sidebar/>} */}
         </div>
       </div>
-
-      {dropdownm ? (
-        <div id={stl.dropdowm} className={stl.dropdowm}>
-          <div className={stl.marketplace} onClick={toMarket}>
-            Marketplace
-          </div>
-          <hr style={{ width: "92vw" }} />
-          {accessToken ? (
-            <div className={stl.SignUp}>
-              <div className={stl.ranking} onClick={toprofile}>
-                profile
-              </div>
-            </div>
-          ) : (
-            <div className={stl.SignUp}>
-              <div className={stl.ranking} onClick={web3Handler}>
-                Connect
-              </div>
-            </div>
-          )}
-
-          {accessToken ? (
-            <>
-              <hr style={{ width: "92vw" }} />
-              <div className={stl.ranking} onClick={logout}>
-                logout
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
-          <hr style={{ width: "92vw" }} />
-        </div>
-      ) : (
-        <></>
-      )} 
-
-{/* {sidebar&&<Sidebar/>} */}
-</div>
-</div>
+     {onProfileclick&& <div className={stl.dropoProfile}>
+    
+      <h3>Profile</h3>
+      <h3>Logout</h3>
+      </div>}
     </>
   );
 };

@@ -201,11 +201,11 @@ function DetailView(props) {
     let listingPrice = await contract.getListPrice();
     listingPrice = listingPrice.toString();
     try {
-        let transaction = await contract.reSellToken(nft.nftId, priceInEther, {
-            value: listingPrice,
-          });
-          setTrans(await transaction.wait());
-          console.log(transaction);
+      let transaction = await contract.reSellToken(nft.nftId, priceInEther, {
+        value: listingPrice,
+      });
+      setTrans(await transaction.wait());
+      console.log(transaction);
     } catch (error) {
       if (
         `execution reverted: Only item owner can perform this operation ` ===
@@ -229,15 +229,9 @@ function DetailView(props) {
     setTrans(await transaction.wait());
     console.log(transaction);
   };
-  //approve bid if user is  not the creator then  resell function will call
 
-  const contractReSell = async (contract, priceInEther, listingPrice) => {
-    let transaction = await contract.reSellToken(nft.nftId, priceInEther, {
-      value: listingPrice,
-    });
-    setTrans(await transaction.wait());
-    console.log(transaction);
-  };
+
+ 
   useEffect(() => {
     if (bidapproveData?.bidid && trans) approveBids(bidapproveData);
   }, [bidapproveData, trans]);

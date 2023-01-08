@@ -13,7 +13,7 @@ router.use(authenticateToken);
 router.get("/", validateExpression("get"), getUserCart);
 router.get("/getUserCartIds", validateExpression("get"), getUserCartIds);
 router.put("/addToCart", validateExpression("add"), addToCart);
-router.post("/checkout",authenticateToken,checkOutCart)
+router.post("/checkout",checkOutCart)
 router.delete(
   "/deleteCartItem/:id",
   validateExpression("delete"),

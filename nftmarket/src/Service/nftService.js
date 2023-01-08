@@ -285,3 +285,11 @@ export async function closeSales(id){
     });
   return datavalue;
 }
+//get user cart ids
+export async function getapprovedbids (){
+  const datavalue =  await axios.get(`${API_URL}/api/cart/getUserCartIds`).then((response) => {
+      return response.data
+  })
+  return datavalue
+}
+

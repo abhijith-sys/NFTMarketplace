@@ -10,6 +10,7 @@ import svgins from "../../Assets/instagramlogo-1@2x.svg";
 import svgprncil from "../../Assets/icons8-pencil-drawing-50.png";
 import {
   checkOutCart,
+  getapprovedbids,
   getSelectedUserId,
   getuserCartDetails,
   getuserCollectednfts,
@@ -203,7 +204,10 @@ const Profile = (props) => {
   }, []);
 
   function checkoutCart() {
-    checkOutCart();
+    getapprovedbids().then(response=>{
+console.log(response);
+    })
+    // checkOutCart();
   }
   //total price bottom content
   function displayTotalPrice(nfts) {
