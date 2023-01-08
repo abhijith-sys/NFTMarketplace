@@ -116,7 +116,7 @@ const [onProfileclick, setonProfileclick] = useState(false)
     ClearUserId();
     setUserId(undefined);
     setonProfileclick(!onProfileclick)
-    // navigate("/userprofile");
+    navigate("/userprofile");
   };
 
   const tohome = () => {

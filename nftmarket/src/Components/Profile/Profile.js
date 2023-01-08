@@ -8,6 +8,8 @@ import svgyou from "../../Assets/youtubelogo-3@2x.svg";
 import svgtwi from "../../Assets/twitterlogo-3@2x.svg";
 import svgins from "../../Assets/instagramlogo-1@2x.svg";
 import svgprncil from "../../Assets/icons8-pencil-drawing-50.png";
+import Marketplace from "../../Marketplace.json";
+
 import {
   checkOutCart,
   getapprovedbids,
@@ -27,6 +29,8 @@ import {
   setUserDetails,
   setUserProfile,
 } from "../../Service/userService";
+import { ethers } from "ethers";
+
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -154,7 +158,7 @@ const Profile = (props) => {
       setSelectedTab(false);
     });
   };
-
+const [totalprise, settotalprise] = useState(0)
   const getcart = () => {
     getuserCartDetails().then((data) => {
       console.log("cart data");
@@ -204,11 +208,36 @@ const Profile = (props) => {
   }, []);
 
   function checkoutCart() {
-    getapprovedbids().then(response=>{
-console.log(response);
-    })
+    getapprovedbids().then(async (response) => {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        let contract = new ethers.Contract(
+          Marketplace.address,
+          Marketplace.abi,
+          signer
+        );
+        const price = ethers.utils.parseUnits("0.02", "ether");
+        let listingPrice = await contract.getListPrice();
+        listingPrice = listingPrice.toString();
+
+        let transaction = await contract.checkOut(response,{
+          value: listingPrice,
+        });
+        // if(transaction.)
+
+        let trans = await transaction.wait();
+      } catch (error) {
+        console.log(error);
+      }
+     
+      
+    });
     // checkOutCart();
   }
+
+
+ 
   //total price bottom content
   function displayTotalPrice(nfts) {
     let cartTotal;
@@ -236,7 +265,7 @@ console.log(response);
   }
   const [limit, setlimit] = useState(0);
   const prevpage = () => {
-    if (limit>0) {
+    if (limit > 0) {
       console.log("decremet");
       setlimit(limit - 1);
     }
@@ -264,12 +293,14 @@ console.log(response);
     if (Array.isArray(nfts)) {
       return (
         <div className={pro.selectedContent}>
-          <button onClick={prevpage} className={`${pro.nextbtn}  ${pro.nextbtnleft}`}></button>
+          <button
+            onClick={prevpage}
+            className={`${pro.nextbtn}  ${pro.nextbtnleft}`}
+          ></button>
           {SelectedTab
             ? nfts.map((data) =>
                 Array.isArray(data?.cart)
                   ? data.cart.map((nftdata) => (
-                    
                       <Card
                         key={nftdata?._id}
                         showcart={true}
@@ -325,7 +356,7 @@ console.log(response);
                     ))
                   : null
               )}
-          <button onClick={getevent}className={pro.nextbtn} ></button>
+          <button onClick={getevent} className={pro.nextbtn}></button>
         </div>
       );
     }
