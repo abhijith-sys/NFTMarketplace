@@ -79,7 +79,7 @@ const newitemadded=()=>{
         <div className={markt.filterSearchAlign}>
           <div className={markt.filterSearchHeading}>
             <h1>Browse Marketplace</h1>
-            <p>Browse through more than 50k NFTs on the NFT Marketplace.</p>
+            <p>Browse our selection of NFTs in our online marketplace, which includes a variety of NFTs for you to choose from....</p>
           </div>
           <div className={markt.inputfieldoutline}>
             <input
@@ -105,6 +105,7 @@ const newitemadded=()=>{
           nftdetails={data.nft}
           username={data?.nft?.owner.name ? data?.nft?.owner?.name : "unnamed"}
           userprofile={data.nft?.owner?.profile_photo ? data.nft?.owner?.profile_photo : "nill"}
+         showwish={true}
           // userId={data?.nft?.owner?._id}
         />
       ))}

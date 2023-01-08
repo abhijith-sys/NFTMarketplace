@@ -312,6 +312,7 @@ const [totalprise, settotalprise] = useState(0)
                         wish={data?.wishlist ? true : false}
                         refreshWish={refrshWishList}
                         userId={nftdata?.owner[0]._id}
+                        showwish={false}
                       />
                     ))
                   : Array.isArray(data?.wishlist)
@@ -327,6 +328,7 @@ const [totalprise, settotalprise] = useState(0)
                         wish={data?.wishlist ? true : false}
                         refreshWish={refrshWishList}
                         userId={nftdata?.owner[0]._id}
+                        showwish={true}
                       />
                     ))
                   : null
@@ -341,6 +343,7 @@ const [totalprise, settotalprise] = useState(0)
                         username={data?.name}
                         userprofile={data?.profile_photo}
                         display={false}
+                        showwish={false}
                       />
                     ))
                   : Array.isArray(data)
@@ -352,6 +355,7 @@ const [totalprise, settotalprise] = useState(0)
                         username={data?.name}
                         userprofile={data?.profile_photo}
                         display={false}
+                        showwish={false}
                       />
                     ))
                   : null

@@ -89,7 +89,7 @@ const Ranking = () => {
               <div className="totalsales">
                 <div className="totalsal">Total Sales :</div>
                 <div className="total-eth">
-                  {data.total_sale ? data.total_sale : "0.00"}
+                  {data.sellCount ? data.sellCount : "0.00"}
                 </div>
               </div>
             </div>

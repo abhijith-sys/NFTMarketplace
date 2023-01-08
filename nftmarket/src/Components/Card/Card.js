@@ -118,7 +118,8 @@ useEffect(()=>{
   };
   function renderImgElement(favselect, props) {
     let imgElement;
-    if (favselect !== undefined) {
+    if(props.showwish)
+    if (favselect !== undefined ) {
       if (favselect) {
         imgElement = (
           <img
