@@ -172,7 +172,7 @@ const [count, setfirst] = useContext(cartcoundvalues);
   return (
     <>
     <div style={{width:"100%",height:"100px"}}>
-    <div style={{position:"fixed" ,width:"100%"}}>
+    <div>
     
       <div className={stl.navbar}>
         <div className={stl.logo} onClick={tohome}>

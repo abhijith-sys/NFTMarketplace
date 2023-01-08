@@ -95,7 +95,7 @@ export async function getTopCreators() {
 //get trending colllections
 export async function getTrendingCollections() {
   const datavalue = await axios
-    .get(`${API_URL}/api/users/getAllUserCollectedNft`)
+    .get(`${API_URL}/api/users/getTopTrendingNftCollection`)
     .then((response) => {
       return response.data;
     });

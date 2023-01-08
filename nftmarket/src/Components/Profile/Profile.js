@@ -32,7 +32,7 @@ const Profile = (props) => {
   const [userdetails, setuserdetails] = useState([]);
   const [nfts, setnfts] = useState([]);
   const [SelectedTab, setSelectedTab] = useState(false);
-
+  const [cardHasNext, setcardHasNext] = useState(false);
   const imagehosturl = "http://localhost:8080/";
   const [selectedTab, setSelectedTabs] = useState("created");
   const [UserDeatsils, setUserDeatsils] = useState(false);
@@ -159,6 +159,7 @@ const Profile = (props) => {
       console.log("cart data");
       console.log(data);
       setnfts(data);
+      setcardHasNext(data[0].hasNextPage);
       setSelectedTab(true);
     });
   };
@@ -229,15 +230,42 @@ const Profile = (props) => {
       return <></>;
     }
   }
+  const [limit, setlimit] = useState(0);
+  const prevpage = () => {
+    if (limit>0) {
+      console.log("decremet");
+      setlimit(limit - 1);
+    }
+  };
+  const getevent = () => {
+    if (cardHasNext) {
+      console.log("increment");
+      setlimit(limit + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (limit >= 0) {
+      getuserCartDetails(limit).then((data) => {
+        console.log("cart data");
+        console.log(data);
+        setnfts(data);
+        setcardHasNext(data[0].hasNextPage);
+        setSelectedTab(true);
+      });
+    }
+  }, [cardHasNext, limit]);
 
   function renderCards(nfts, SelectedTab) {
     if (Array.isArray(nfts)) {
       return (
         <div className={pro.selectedContent}>
+          <button onClick={prevpage} className={`${pro.nextbtn}  ${pro.nextbtnleft}`}></button>
           {SelectedTab
             ? nfts.map((data) =>
                 Array.isArray(data?.cart)
                   ? data.cart.map((nftdata) => (
+                    
                       <Card
                         key={nftdata?._id}
                         showcart={true}
@@ -293,6 +321,7 @@ const Profile = (props) => {
                     ))
                   : null
               )}
+          <button onClick={getevent}className={pro.nextbtn} ></button>
         </div>
       );
     }
@@ -330,8 +359,7 @@ const Profile = (props) => {
         />
       )}
 
-    
-        <div className={pro.profilePhoto}>
+      <div className={pro.profilePhoto}>
         <label htmlFor="profile-input">
           <div className={pro.iconbackground}>
             {UserDeatsils && (
@@ -343,9 +371,9 @@ const Profile = (props) => {
             src={`${imagehosturl}${userdetails?.profile_photo}`}
             alt=""
           />
-              </label>
-        </div>
-  
+        </label>
+      </div>
+
       {UserDeatsils && (
         <input
           id="profile-input"

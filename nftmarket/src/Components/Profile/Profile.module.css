@@ -256,16 +256,19 @@
   width: 100%;
   /* height: 115vh; */
   padding-bottom: 40px;
-  justify-content: center;
+ 
   background-color: #3b3b3b;
   display: flex;
   align-items: flex-start;
+  justify-content: center;
+  align-self: center;
   float: left;
   flex-wrap: wrap;
   padding-top: 70px;
   gap: 40px;
   overflow: scroll;
   border-bottom: 2px solid black;
+  
 }
 
 .communitylogos {
@@ -365,4 +368,31 @@
   .alignChekout {
     flex-direction: column;
   }
+}
+.nextbtn{
+  width: 48px;
+  height: 48px;
+  background-color: #2b2b2b;
+  border-radius: 48px;
+  border: 2px solid#a259ff;
+  transition: all 0.3s ease;
+}
+.nextbtn::after {
+  content: "\276F";
+  font-size: 18px;
+  color: #a259ff;
+  transition: all 0.3s ease;
+}
+.nextbtn:hover {
+  border-color: #14519f;
+}
+
+.nextbtn:hover::after {
+  color: #14519f;
+}
+.nextbtnleft::after {
+  content: "\276E" !important;
+  font-size: 18px;
+  color: #a259ff;
+  transition: all 0.3s ease;
 }

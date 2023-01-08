@@ -83,9 +83,16 @@ export async function getusernfts() {
 }
 
 //get user collcted  nfts
-export async function getuserCollectednfts() {
+export async function getuserCollectednfts(page) {
+  let pagenumber
+if(page>0){
+  pagenumber=page
+}else{
+  pagenumber=0
+}
+
   const datavalue = await axios
-    .get(`${API_URL}/api/users/getUserCollectedNft`)
+    .get(`${API_URL}/api/users/getUserCollectedNft/?page=${pagenumber}`)
     .then((response) => {
       return response.data;
     });
@@ -93,12 +100,16 @@ export async function getuserCollectednfts() {
 }
 
 //get userdetails
-export async function getuserCartDetails(number) {
-  let nestnumber=5
-  if(number)
- nestnumber=number
+export async function getuserCartDetails(page) {
+  let pagenumber
+  if(page>0){
+    pagenumber=page
+  }else{
+    pagenumber=0
+  }
+  
 
-  const datavalue = await axios.get(`${API_URL}/api/cart/`).then((response) => {
+  const datavalue = await axios.get(`${API_URL}/api/cart/?page=${pagenumber}`).then((response) => {
     return response.data;
   });
   return datavalue;
