@@ -225,6 +225,12 @@ const buyNft = async (req, res) => {
 
       }
     );
+   await userModel.updateOne(
+      {
+        metamaskId: { $regex: preUserId, $options: "i" },
+
+      },{ $inc: { sellCount: 1 }}
+    );
     await nftModel.updateOne({ _id: nftId }, { owner: newUser._id, status: 0 ,bids:[]});
 
     res.send("success");

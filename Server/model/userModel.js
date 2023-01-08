@@ -10,8 +10,8 @@ const userSchema = mongoose.Schema(
     cover_photo: { type: String, unique: false },
     bio: { type: String },
     password: { type: String },
-    status: { type: Number },
-    sellCount: { type: Number },
+    status: { type: Number,default:0 },
+    sellCount: { type: Number,default:0 },
     approvedBids: { type: Array },
     cart: [
       {
@@ -31,12 +31,6 @@ const userSchema = mongoose.Schema(
         ref: "nft",
       },
     ],
-    // owned: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "nft",
-    //   },
-    // ],
     link: {
       discord: { type: String },
       youtube: { type: String },
@@ -46,8 +40,6 @@ const userSchema = mongoose.Schema(
 
     accessToken: { type: String },
     refreshToken: { type: String },
-    cartTotal: { type: Number },
-    hasNextPage: { type: Boolean, default: false },
   },
   {
     timestamps: true,
