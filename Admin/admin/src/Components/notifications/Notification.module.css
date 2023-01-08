@@ -38,6 +38,7 @@
   width: auto;
   display: flex;
   align-items: center;
+  gap:20px;
   justify-content: space-between;
 }
 
@@ -47,7 +48,6 @@
   overflow-x: none;
   text-align: start;
   padding: 10px;
-  margin-bottom: 8px;
 }
 .btns {
   min-width: 300px;
@@ -86,4 +86,9 @@ h3 {
   border-radius: 20px;
   border: none;
   margin-left: 10px;
+}
+@media screen and (max-width: 730px) {
+  .date{
+    flex-direction: column;
+  }
 }
