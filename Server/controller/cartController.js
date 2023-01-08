@@ -10,7 +10,7 @@ const getUserCart = async (req, res) => {
     if (validatorsError.errors.length !== 0) {
       return res.status(400).send(validatorsError.errors[0].msg);
     }
-    // let { page, limit } = req.query;
+
     const { page = 0, limit = 5 } = req.query;
     const userId = ObjectId(req.user);
 

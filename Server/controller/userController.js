@@ -292,7 +292,8 @@ const getUserCreatedNft = async (req, res) => {
     if (validatorsError.errors.length !== 0) {
       return res.status(400).send(validatorsError.errors[0].msg);
     }
-    let { page, limit } = req.query;
+    const { page = 0, limit = 5 } = req.query;
+
 
     const createdNft = await userModel.aggregate([
       {
@@ -306,19 +307,24 @@ const getUserCreatedNft = async (req, res) => {
           as: "created",
         },
       },
+       {
+          $project: {
+            name: true,
+            profile_photo: true,
+            created:true
+          }},
       {
-        $project: {
+        $addFields: {
           name: true,
           profile_photo: true,
           hasNextPage: {
-            $gt: [{ $size: "$created" }, (page || 0) + (limit || 5)],
+            $gt: [
+              { $size: "$created" },
+              Number(page) * Number(limit) + Number(limit),
+            ],
           },
           created: {
-            $cond: {
-              if: { $gte: [{ $size: "$created" }, (page || 0) * (limit || 5)] },
-              then: { $slice: ["$created", page || 0, limit || 5] },
-              else: "[]",
-            },
+            $slice: ["$created", Number(page) * Number(limit), Number(limit)],
           },
         },
       },
@@ -331,7 +337,7 @@ const getUserCreatedNft = async (req, res) => {
 const getTopCreators = async (req, res) => {
   try {
     const users = await userModel
-      .find({}, { profile_photo: true, name: true, metamaskId: true ,sellCount:true})
+      .find({status:{$ne:1}}, { profile_photo: true, name: true, metamaskId: true ,sellCount:true})
       .sort({ sellCount: -1 })
       .limit(12)
       .lean();
