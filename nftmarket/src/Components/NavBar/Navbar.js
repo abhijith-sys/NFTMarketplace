@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
@@ -13,21 +13,25 @@ import {
   logOut,
   setUserId,
 } from "../../Service/nftService";
+import carticon from "../../Assets/carticonsssssssssss.png";
+import { cartcoundvalues } from "../Router/Router";
+import Sidebar from "../sidebar/Sidebar";
+import bellIcon from "../../Assets/bell-3-64.ico"
 
 const Navbar = () => {
-
+ const [sidebar, setsidebar] = useState(false)
   const [dropdownm, setdropdown] = useState(false);
   const navigate = useNavigate();
   const [account, setAccount] = useState(localStorage.getItem("account"));
   const [accessToken, setaccessToken] = useState(
     localStorage.getItem("accessToken")
   );
-
-
+const [count, setfirst] = useContext(cartcoundvalues);
   const [signature, setsignature] = useState(null);
-  const [homeselected, sethomeselected] = useState(false)
-  const [marketplaceSelected, setmarketplaceSelected] = useState(false)
-  const [rankingSelected, setrankingSelected] = useState(false)
+  const [homeselected, sethomeselected] = useState(false);
+  const [marketplaceSelected, setmarketplaceSelected] = useState(false);
+  const [rankingSelected, setrankingSelected] = useState(false);
+  const [cart, setcart] = useState(0);
 
   const web3Handler = async () => {
     if (typeof window.ethereum == "undefined") {
@@ -64,9 +68,9 @@ const Navbar = () => {
         localStorage.setItem("accessToken", response.accessToken);
         localStorage.setItem("refreshToken", response.refreshToken);
         localStorage.setItem("username", response.name);
-        
+
         setaccessToken(localStorage.getItem("accessToken"));
-       
+
         addToFavorite(JSON.parse(localStorage.getItem("wishlist")) || []).then(
           (response) => {
             console.log(response);
@@ -104,27 +108,28 @@ const Navbar = () => {
   }, [account]);
 
   const toprofile = () => {
-    sethomeselected(false)
-    setmarketplaceSelected(false)
-    setrankingSelected(false)
+    setsidebar(!sidebar)
+    sethomeselected(false);
+    setmarketplaceSelected(false);
+    setrankingSelected(false);
     localStorage.removeItem("nft_id");
     ClearUserId();
     setUserId(undefined);
-    navigate("/userprofile");
+    // navigate("/userprofile");
   };
 
   const tohome = () => {
-    sethomeselected(true)
-    setmarketplaceSelected(false)
-    setrankingSelected(false)
+    sethomeselected(true);
+    setmarketplaceSelected(false);
+    setrankingSelected(false);
     localStorage.removeItem("nft_id");
     ClearUserId();
     navigate("/");
   };
   const toMarket = () => {
-    sethomeselected(false)
-    setmarketplaceSelected(true)
-    setrankingSelected(false)
+    sethomeselected(false);
+    setmarketplaceSelected(true);
+    setrankingSelected(false);
     localStorage.removeItem("nft_id");
     ClearUserId();
     navigate("/marketplace");
@@ -141,16 +146,34 @@ const Navbar = () => {
     setdropdown(!dropdownm);
   };
 
-  const toRanking =()=>{
+  const toRanking = () => {
     ClearUserId();
-    setrankingSelected(true)
-    sethomeselected(false)
-    setmarketplaceSelected(false)
+    setrankingSelected(true);
+    sethomeselected(false);
+    setmarketplaceSelected(false);
     navigate("/ranking");
+  };
+  const tocart =()=>{
+    ClearUserId();
+    setrankingSelected(true);
+    sethomeselected(false);
+    setmarketplaceSelected(false);
+    navigate("/cart");
+  }
+
+  const toNofication=()=>{
+    ClearUserId();
+    setrankingSelected(true);
+    sethomeselected(false);
+    setmarketplaceSelected(false);
+    navigate("/notification");
   }
 
   return (
     <>
+    <div style={{width:"100%",height:"100px"}}>
+    <div style={{position:"fixed" ,width:"100%"}}>
+    
       <div className={stl.navbar}>
         <div className={stl.logo} onClick={tohome}>
           <img
@@ -158,7 +181,11 @@ const Navbar = () => {
             src={nfticon}
             alt="logo"
           />
-          <h2 className={`${stl.nftheading} ${homeselected?stl.selected:""}`}>NFT Marketplace</h2>
+          <h2
+            className={`${stl.nftheading} ${homeselected ? stl.selected : ""}`}
+          >
+            NFT Marketplace
+          </h2>
         </div>
         <div className={stl.menus}>
           {accessToken ? (
@@ -173,10 +200,27 @@ const Navbar = () => {
             <div className={stl.SignUp}>
               <button className={stl.signUpButton} onClick={web3Handler}>
                 <img className={stl.profileicon} src={profileicon} alt="" />{" "}
-              Connect
+                Connect
               </button>
             </div>
           )}
+          {accessToken ? (
+            <div className={stl.cart} onClick={tocart} >
+             <div className={stl.cartcount}>{count} </div> 
+              <img src={carticon} alt="" className={stl.carticon} />
+            </div>
+          ) : (
+            <></>
+          )}
+           {accessToken ? (
+            <div className={stl.cart} onClick={toNofication} >
+             <div className={stl.cartcount}>{count} </div> 
+              <img src={bellIcon} alt="" className={stl.carticon} />
+            </div>
+          ) : (
+            <></>
+          )}
+
           {accessToken ? (
             <div className={stl.ranking} onClick={logout}>
               logout
@@ -184,9 +228,19 @@ const Navbar = () => {
           ) : (
             <></>
           )}
-          
-          <div className={`${stl.ranking} ${rankingSelected?stl.selected:""}`} onClick={toRanking}>Ranking</div>
-          <div className={`${stl.marketplace} ${marketplaceSelected?stl.selected:""}`} onClick={toMarket}>
+
+          <div
+            className={`${stl.ranking} ${rankingSelected ? stl.selected : ""}`}
+            onClick={toRanking}
+          >
+            Ranking
+          </div>
+          <div
+            className={`${stl.marketplace} ${
+              marketplaceSelected ? stl.selected : ""
+            }`}
+            onClick={toMarket}
+          >
             Marketplace
           </div>
         </div>
@@ -210,7 +264,7 @@ const Navbar = () => {
           ) : (
             <div className={stl.SignUp}>
               <div className={stl.ranking} onClick={web3Handler}>
-               Connect
+                Connect
               </div>
             </div>
           )}
@@ -229,7 +283,11 @@ const Navbar = () => {
         </div>
       ) : (
         <></>
-      )}
+      )} 
+
+{sidebar&&<Sidebar/>}
+</div>
+</div>
     </>
   );
 };

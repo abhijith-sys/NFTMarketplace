@@ -1,14 +1,13 @@
-import React, {  useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import img1 from "../../Assets/Screenshot from 2022-12-02 16-56-33.png";
 
 import card from "./Card.module.css";
 import favricon from "../../Assets/icons8-favorite-48.png";
-import faviconDeselect from "../../Assets/icons8-favorite-24.png";
+import faviconDeselect from "../../Assets/icons8-favorite-64.png";
 import {
   addToCart,
   addToFavorite,
-
   removeFavorite,
   RemoveFromCart,
   setNftId,
@@ -16,8 +15,10 @@ import {
 } from "../../Service/nftService";
 
 import carticon from "../../Assets/icons8-fast-cart-30.png";
+import { cartcoundvalues } from "../Router/Router";
 
 export const Card = (props) => {
+  const [countvalues,setcountvalues] = useContext(cartcoundvalues);
   const navigate = useNavigate();
   const [favselect, setfavselect] = useState();
   const [InCart, setInCart] = useState();
@@ -74,8 +75,25 @@ export const Card = (props) => {
       });
     }
   };
+useEffect(()=>{
+  console.log('====================================');
 
+ 
+  console.log(countvalues);
+  // [cartccountvalues,setcartccountvalues]
+  console.log('====================================');
+},[countvalues])
   const addToCarts = (id) => {
+    setcountvalues(countvalues+1)
+    props.newitem(1)
+    let cartcount = 0;
+    if (localStorage.getItem("cartno")) {
+      cartcount = JSON.parse(localStorage.getItem("cartno"));
+    } else {
+      localStorage.setItem("cartno", 0);
+    }
+    localStorage.setItem("cartno", JSON.stringify(cartcount + 1));
+
     setInCart(true);
     addToCart(id).then((response) => {
       props.refresh();
@@ -83,12 +101,10 @@ export const Card = (props) => {
   };
 
   const removeFromCart = (id) => {
+    setcountvalues(countvalues-1)
     setInCart(false);
     RemoveFromCart(id).then((response) => {
       props.refresh();
-  
-      
-    
     });
   };
 
@@ -98,7 +114,7 @@ export const Card = (props) => {
     navigate("/profile");
   };
   const ToCarts = () => {
-    navigate("/profile");
+    navigate("/cart");
   };
   function renderImgElement(favselect, props) {
     let imgElement;
@@ -212,16 +228,13 @@ export const Card = (props) => {
 
   return (
     <div className={props.bg ? card.chgbg : card.trending}>
-      <div className={card.fav}>
-        {renderImgElement(favselect, props)}
-        
-      </div>
+      <div className={card.fav}>{renderImgElement(favselect, props)}</div>
       <img
         className={card.trendingCardImg}
         src={props.nftdetails.image ? props.nftdetails.image : img1}
         alt=""
         onClick={() => {
-          handleClick(props.nftdetails._id);
+          handleClick(props.userId ? props.userId : props.nftdetails._id);
         }}
       />
       <div className={card.trendingCardContent}>
@@ -239,14 +252,17 @@ export const Card = (props) => {
           <div className={card.artistAvatharIcon}>
             <img
               className={card.artistAvatharIconImg}
-              src={(props?.nftdetails?.owner) ? imagehosturl + props?.nftdetails?.owner?.profile_photo :imagehosturl + props.userprofile}
+              src={
+                props.userprofile
+                  ? imagehosturl + props.userprofile
+                  : imagehosturl + props?.nftdetails?.owner?.profile_photo
+              }
               alt=""
             />
           </div>
           <div className={card.artistName}>
             <div className="name">
-           
-              {props.username? props.username:props.nftdetails?.owner?.name }
+              {props.username ? props.username : props.nftdetails?.owner?.name}
             </div>
           </div>
         </div>

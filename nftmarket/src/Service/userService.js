@@ -125,19 +125,11 @@ export async function SubscribeEmailNotification(data){
 
   return datavalue;
 }
-//get userdetails
-export async function getuserdetailsAdmin (key){
-  const datavalue =  await axios.get(`${API_URL}/api/admin/listUser?keyWord=${key}`).then((response) => {
 
-    // .get(`${API_URL}/api/nft/list?search=${limit.search ? limit.search : ""}`)
 
-      return response.data
-  })
-  return datavalue
-}
-//csv export user data
-export async function csvExport (){
-  const datavalue =  await axios.get(`${API_URL}/api/admin/csvExport`).then((response) => {
+//get approved bids
+export async function getapprovedbids (){
+  const datavalue =  await axios.get(`${API_URL}/api/users/approvedBids`).then((response) => {
       return response.data
   })
   return datavalue

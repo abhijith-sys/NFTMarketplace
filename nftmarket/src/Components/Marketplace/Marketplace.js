@@ -70,7 +70,9 @@ const Marketplace = (props) => {
   }, [searchh])
   
 
-
+const newitemadded=()=>{
+  props.cartadded(1)
+}
   return (
     <div className={markt.maketplace} onScroll={getevent}>
       <div className={markt.filterSearch}>
@@ -94,16 +96,16 @@ const Marketplace = (props) => {
       {nfts?.map((data) => (
         <Card
           key={data._id}
-        
+          newitem={newitemadded}
           wish={data.wishList ? true : false}
           showcart={true}
           display={data.cart ? true : false}
           favr={true}
           onselect={getselectednft}
           nftdetails={data.nft}
-          username={(data?.owner?.ownerName) ? (data?.owner?.ownerName) : "unnamed"}
-          userprofile={data.profilePicture ? data.profilePicture : "nill"}
-          userId={data.userId}
+          username={data?.nft?.owner.name ? data?.nft?.owner?.name : "unnamed"}
+          userprofile={data.nft?.owner?.profile_photo ? data.nft?.owner?.profile_photo : "nill"}
+          userId={data?.nft?.owner?._id}
         />
       ))}
           <SpinnerDotted

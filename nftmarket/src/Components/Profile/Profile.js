@@ -198,9 +198,6 @@ const Profile = (props) => {
     getcart();
   }, []);
   const refrshWishList = useCallback(() => {
-    console.log("====================================");
-    console.log("refresh");
-    console.log("====================================");
     getWshlist();
   }, []);
 
@@ -246,11 +243,12 @@ const Profile = (props) => {
                         showcart={true}
                         display={data.wishlist ? false : true}
                         nftdetails={nftdata}
-                        username={data?.name}
-                        userprofile={data?.profile_photo}
+                        username={nftdata?.owner[0]?.name}
+                        userprofile={nftdata?.owner[0]?.profile_photo}
                         refresh={refresh}
                         wish={data?.wishlist ? true : false}
                         refreshWish={refrshWishList}
+                        userId={nftdata?.owner[0]._id}
                       />
                     ))
                   : Array.isArray(data?.wishlist)
@@ -260,11 +258,12 @@ const Profile = (props) => {
                         showcart={true}
                         display={data.wishlist ? false : true}
                         nftdetails={nftdata}
-                        username={data?.name}
-                        userprofile={data?.profile_photo}
+                        username={nftdata?.owner[0]?.name}
+                        userprofile={nftdata?.owner[0]?.profile_photo}
                         refresh={refresh}
                         wish={data?.wishlist ? true : false}
                         refreshWish={refrshWishList}
+                        userId={nftdata?.owner[0]._id}
                       />
                     ))
                   : null

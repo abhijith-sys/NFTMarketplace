@@ -8,6 +8,7 @@
   height: auto;
   max-height: 500px;
   max-width: 315px;
+  z-index: 0;
   position: relative;
   /* margin-left: 40px; */
   border-radius: 20px;
@@ -15,6 +16,7 @@
   transition-duration: 0.3s;
   transition-timing-function: ease;
   fill: backwards;
+
 }
 .chgbg {
   align-items: flex-start;
@@ -172,8 +174,8 @@
   position: relative;
   left: 255px;
   top: 338px;
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   z-index: 1;
 }
 .fav {

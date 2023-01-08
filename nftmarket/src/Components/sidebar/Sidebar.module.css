@@ -1,0 +1,66 @@
+.sidebarbody {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 9999 !important;
+  padding-right: 50px;
+}
+.left {
+  width: 80%;
+  background: transparent !important;
+  height: 100vh;
+}
+.right {
+  width: 20%;
+  background-color: black !important;
+  height: 98vh;
+  border-radius: 20px;
+  min-width: 300px;
+}
+.rightbtns {
+  width: 100%;
+  height: 20%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+  border-bottom: 1px solid #a259ff;
+}
+.rightNofication {
+  width: 100%;
+  height: 60%;
+  border-bottom: 1px solid #a259ff;
+  display: flex;
+  /* justify-content: center; */
+  gap: 10px;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: none;
+  padding-top: 10px;
+}
+.rightbtmbtns {
+  width: 100%;
+  height: 20%;
+}
+.rightNoficationCard {
+  width: 95%;
+  border: 1px solid gray;
+  min-height: 100px;
+  border-radius: 20px;
+}
+.btns {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid rgb(142, 137, 137);
+  border-radius: 20px;
+}

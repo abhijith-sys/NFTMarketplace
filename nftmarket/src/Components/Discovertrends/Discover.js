@@ -78,7 +78,7 @@ export const Discove = () => {
                   <div
                     className={dis.name}
                     onClick={() => {
-                      getuserDetails(data?.nft.owner?.userId);
+                      getuserDetails(data?.nft?.owner?._id);
                     }}
                   >
                     {data?.nft.owner?.name}

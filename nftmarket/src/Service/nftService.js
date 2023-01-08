@@ -93,8 +93,12 @@ export async function getuserCollectednfts() {
 }
 
 //get userdetails
-export async function getuserCartDetails() {
-  const datavalue = await axios.get(`${API_URL}/api/cart`).then((response) => {
+export async function getuserCartDetails(number) {
+  let nestnumber=5
+  if(number)
+ nestnumber=number
+
+  const datavalue = await axios.get(`${API_URL}/api/cart/`).then((response) => {
     return response.data;
   });
   return datavalue;

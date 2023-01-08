@@ -89,7 +89,7 @@ export const Auction = () => {
               <div
                 className={auct.auctionBy}
                 onClick={() => {
-                  getuserDetails(nft.length > 0 ? nft[Randnft]?.userId : 0);
+                  getuserDetails(nft.length > 0 ? nft[Randnft]?.nft?.owner?._id : 0);
                 }}
               >
                 <div className={auct.auctionByAvathar}>
@@ -97,14 +97,14 @@ export const Auction = () => {
                     className={auct.auctionByAvatharImg}
                     src={
                       nft.length > 0
-                        ? imagehosturl + nft[Randnft]?.profilePicture
+                        ? imagehosturl + nft[Randnft]?.nft?.owner?.profile_photo
                         : avatharimg
                     }
                     alt=""
                   />
                 </div>
                 <div className={auct.auctionByName}>
-                  {nft.length > 0 ? nft[Randnft]?.owner?.name : "unnamed"}
+                  {nft.length > 0 ? nft[Randnft]?.nft?.owner?.name : "unnamed"}
                 </div>
               </div>
               <div className={auct.auctionItem}>

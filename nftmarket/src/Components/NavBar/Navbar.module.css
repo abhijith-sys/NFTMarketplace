@@ -4,6 +4,8 @@
   color: white;
   height: 50px;
   text-align: center;
+  z-index: 1;
+  
 }
 
 .SignUp {
@@ -159,4 +161,32 @@
     text-align: center;
     flex-direction: column;
   }
+}
+.carticon{
+  width: 30px;
+  height: 26px;
+}
+.cartcount{
+  position: relative;
+  top: 15px;
+left: 4px;
+color: #a259ff;
+}
+.cart{
+  background-color: transparent;
+  letter-spacing: 0px;
+  bottom: 7px;
+  mix-blend-mode: normal;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  
+  float: right;
+
+
+padding-right: 20px;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  fill: backwards;
+  cursor: pointer;
 }
