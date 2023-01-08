@@ -529,7 +529,7 @@ function DetailView(props) {
                               Auction ends in:
                             </div>
                             <div className={auct.auctionEndTimes}>
-                              <div className={auct.hour}>
+                              {/* <div className={auct.hour}>
                                 <div className={auct.hourVal}>59</div>
                                 <div className={auct.hourDesc}>Hours</div>
                               </div>
@@ -542,7 +542,7 @@ function DetailView(props) {
                               <div className={auct.hour}>
                                 <div className={auct.hourVal}>59</div>
                                 <div className={auct.hourDesc}>seconds</div>
-                              </div>
+                              </div> */}
                             </div>
                             <div>
                               <button
