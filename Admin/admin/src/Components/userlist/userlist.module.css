@@ -197,7 +197,7 @@ only screen and (max-width: 760px),
         border: none;
         border-bottom: 1px solid rgb(44, 40, 40); 
         position: relative;
-        padding-left: 50%; 
+        padding-left: 5%; 
     }
 
     td:before { 
@@ -222,7 +222,6 @@ only screen and (max-width: 760px),
   border-radius: 8px;
   border-style: none;
   margin-top: 20px;
-  margin-left: 100px;
   box-sizing: border-box;
   color: #FFFFFF;
   cursor: pointer;

@@ -9,129 +9,57 @@ const getUserWishlist = async (req, res) => {
     if (validatorsError.errors.length !== 0) {
       return res.status(400).send(validatorsError.errors[0].msg);
     }
-    let { page, limit } = req.query;
-
-    const wishlistValue = await userModel.aggregate([
-      {
-        $match: { _id: ObjectId(req.user) },
-      },
-      {
-        $lookup: {
-          from: "nfts",
-          localField: "wishlist",
-          foreignField: "_id",
-          as: "wishlist",
-        },
-      },
-      {
-        $unwind: "$wishlist",
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "wishlist.owner",
-          foreignField: "_id",
-          as: "wishlist.owner",
-        },
-      },
-      {
-        $project: {
-          "wishlist._id": 1,
-          "wishlist.nftName": 1,
-          "wishlist.image": 1,
-          "wishlist.description": 1,
-          "wishlist.bids": 1,
-          "wishlist.status": 1,
-          "wishlist.price": 1,
-          "wishlist.owner._id": 1,
-          "wishlist.owner.name": 1,
-          "wishlist.owner.profile_photo": 1,
-        },
-      },
-
-      {
-        $group: {
-          _id: "$_id",
-          wishlist: {
-            $push: "$wishlist",
-          },
-        },
-      },
-      {
-        $project: {
-          hasNextPage: {
-            $gt: [{ $size: "$wishlist" }, (page || 0) + (limit || 5)],
-          },
-          wishlist: {
-            $cond: {
-              if: { $gte: [{ $size: "$wishlist" }, (page || 0) * (limit || 5)] },
-              then: { $slice: ["$wishlist", page || 0, limit || 5] },
-              else: "[]",
+        const { page = 0, limit = 5 } = req.query;
+        const userId = ObjectId(req.user);
+    
+        const wishlistValue = await userModel.aggregate([
+          { $match: { _id: userId } },
+          {
+            $lookup: {
+              from: "nfts",
+              localField: "wishlist",
+              foreignField: "_id",
+              as: "wishlist",
             },
           },
-        },
-      },
-      // {
-      //   $match: { _id: ObjectId(req.user) },
-      // },
-      // {
-      //   $lookup: {
-      //     from: "nfts",
-      //     localField: "wishlist",
-      //     foreignField: "_id",
-      //     as: "wishlist",
-      //   },
-      // },
-      // {
-      //   $project: {
-      //     wishlist: 1,
-      //   },
-      // },
-      // {
-      //   $lookup: {
-      //     from: "users",
-      //     localField: "wishlist.owner",
-      //     foreignField: "_id",
-      //     as: "wishlist.owner",
-      //   },
-      // },
-      // // {
-      // //   $project: {
-      // //     "wishlist.owner.name": 1,
-      // //     "wishlist.owner.profile_photo": 1,
-      // //   },
-      // // },
-      // {
-      //   $group: {
-      //     _id: "$_id",
-      //     wishlist: {
-      //       $push: "$wishlist",
-      //     },
-      //   },
-      // },
-      // {
-      //   $project: {
-      //     hasNextPage: { $gt: [{ $size: "$wishlist" }, (page || 0) + (limit || 5)] },
-      //     wishlist: {
-      //       $cond: {
-      //         if: { $gte: [{ $size: "$wishlist" }, (page || 0) * (limit || 5)] },
-      //         then: { $slice: ["$wishlist", page || 0, limit || 5] },
-      //         else: "[]",
-      //       },
-      //     },
-      //   },
-      // },
-      // {
-      //   $project: {
-      //     "wishli"
-      //     "wishlist.owner.name": 1,
-      //     "wishlist.owner.profile_photo": 1,
-      //     hasNextPage:1
-      //   },
-      // },
-    ]);
-
-    res.send(wishlistValue);
+          { $unwind: "$wishlist" },
+          {
+            $lookup: {
+              from: "users",
+              localField: "wishlist.owner",
+              foreignField: "_id",
+              as: "wishlist.owner",
+            },
+          },
+          {
+            $project: {
+              "wishlist._id": 1,
+              "wishlist.nftName": 1,
+              "wishlist.image": 1,
+              "wishlist.status": 1,
+              "wishlist.price": 1,
+              "wishlist.owner._id": 1,
+              "wishlist.owner.name": 1,
+              "wishlist.owner.profile_photo": 1,
+            },
+          },
+          {
+            $group: {
+              _id: "$_id",
+              wishlist: {
+                $push: "$wishlist",
+              },
+            },
+          },
+          {
+            $addFields: {
+              hasNextPage: { $gt: [{ $size: "$wishlist" }, Number(page) * Number(limit) + Number(limit)] },
+              wishlist: { $slice: ["$wishlist", Number(page) * Number(limit), Number(limit)] },
+            },
+          },
+        ]);
+    
+        res.send(wishlistValue);
   } catch (error) {
     res.status(404).send({message:error.message});
   }

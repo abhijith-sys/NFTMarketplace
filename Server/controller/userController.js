@@ -215,7 +215,7 @@ const getUserCollectedNft = async (req, res) => {
     const ownedValue = await nftModel.paginate(query, {
       page: page || 1,
       limit: limit || 5,
-      populate: "owner",
+      populate: {path:"owner",select:"profile_photo name"},
       lean: true,
     });
     res.send(ownedValue);
@@ -322,7 +322,7 @@ const getUserCreatedNft = async (req, res) => {
 const getTopCreators = async (req, res) => {
   try {
     const users = await userModel
-      .find({}, { profile_photo: true, name: true, metamaskId: true })
+      .find({}, { profile_photo: true, name: true, metamaskId: true ,sellCount:true})
       .sort({ sellCount: -1 })
       .limit(12)
       .lean();
@@ -344,7 +344,8 @@ const getUserById = async (req, res) => {
     const ownedValue = await nftModel.paginate(query, {
       page: page || 1,
       limit: limit || 5,
-      populate: "owner",
+      populate: {path:"owner",select:"metamaskId name profile_photo cover_photo"},
+      select:"nftName image price",
       lean: true,
     });
     res.send(ownedValue);

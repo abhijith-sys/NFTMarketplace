@@ -10,12 +10,12 @@ const getUserCart = async (req, res) => {
     if (validatorsError.errors.length !== 0) {
       return res.status(400).send(validatorsError.errors[0].msg);
     }
-    let { page, limit } = req.query;
+    // let { page, limit } = req.query;
+    const { page = 0, limit = 5 } = req.query;
+    const userId = ObjectId(req.user);
 
     const cartValue = await userModel.aggregate([
-      {
-        $match: { _id: ObjectId(req.user) },
-      },
+      { $match: { _id: userId } },
       {
         $lookup: {
           from: "nfts",
@@ -24,9 +24,7 @@ const getUserCart = async (req, res) => {
           as: "cart",
         },
       },
-      {
-        $unwind: "$cart",
-      },
+      { $unwind: "$cart" },
       {
         $lookup: {
           from: "users",
@@ -40,18 +38,14 @@ const getUserCart = async (req, res) => {
           "cart._id": 1,
           "cart.nftName": 1,
           "cart.image": 1,
-          "cart.description": 1,
-          "cart.bids": 1,
           "cart.status": 1,
           "cart.price": 1,
-
           cartTotal: { $sum: "$cart.price" },
           "cart.owner._id": 1,
           "cart.owner.name": 1,
           "cart.owner.profile_photo": 1,
         },
       },
-
       {
         $group: {
           _id: "$_id",
@@ -62,19 +56,16 @@ const getUserCart = async (req, res) => {
         },
       },
       {
-        $project: {
+        $addFields: {
           hasNextPage: {
-            $gt: [{ $size: "$cart" }, (page || 0) + (limit || 5)],
+            $gt: [
+              { $size: "$cart" },
+              Number(page) * Number(limit) + Number(limit),
+            ],
           },
           cart: {
-            $cond: {
-              if: { $gte: [{ $size: "$cart" }, (page || 0) * (limit || 5)] },
-              then: { $slice: ["$cart", page || 0, limit || 5] },
-              else: "[]",
-            },
+            $slice: ["$cart", Number(page) * Number(limit), Number(limit)],
           },
-          cartTotal: 1,
-
         },
       },
     ]);
