@@ -29,7 +29,7 @@ const Notification = () => {
             <div className={NStyle.describtion}>
                 <h3>Bid Approved for : {data.price} ETH</h3>
                 <h3>{data.nftName}</h3>
-                <h4>{data.describtion}</h4>
+                <h4>{data.description}</h4>
               
             </div>
           </div>
