@@ -83,8 +83,11 @@ const getUserCartIds=async (req,res)=>{
     if (validatorsError.errors.length !== 0) {
       return res.status(400).send(validatorsError.errors[0].msg);
     }
-    const cartItem = await userModel.findById(req.user).select("cart")
-    res.send(cartItem);
+    const cartItem = await userModel.findById(req.user).populate({path:"cart",select:"nftId"}).select("cart")
+    const cartIds = cartItem.cart.map((obj) => {
+      return obj.nftId;
+    });
+    res.send(cartIds);
   } catch (error) {
     res.status(400).send({ message: error.message });
   }
