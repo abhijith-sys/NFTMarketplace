@@ -169,10 +169,9 @@ const updateNft = async (req, res) => {
       return res.status(400).send("Error msg:" + error.errors[0].msg)
     }
 
-    const { price, description, status, id } = req.body;
+    const { price, status, id } = req.body;
     const user = await nftModel.findById(id);
     user.price = price;
-    user.description = description;
     user.status = status;
     res.send(await user.save());
   } catch (error) {
@@ -219,8 +218,6 @@ const approveBid = async (req, res) => {
 const buyNft = async (req, res) => {
   try {
     const { preUserId, newUserId, nftId } = req.body;
-    console.log(req.body);
-
 
     const newUser = await userModel.findOne(
       {
@@ -228,7 +225,7 @@ const buyNft = async (req, res) => {
 
       }
     );
-    await nftModel.updateOne({ _id: nftId }, { owner: newUser._id, status: 0 });
+    await nftModel.updateOne({ _id: nftId }, { owner: newUser._id, status: 0 ,bids:[]});
 
     res.send("success");
   } catch (error) {

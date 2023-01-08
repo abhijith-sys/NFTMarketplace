@@ -9,25 +9,37 @@
 .cards {
   width: 80%;
   height: 90vh;
-  
 }
-.count{
+.count {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+}
+
+.usercount {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid red;
+  border-radius: 20px;
+  background-color: #3b3b3b;
+}
+
+@media screen and (max-width: 630px) {
+  .count {
     width: 100%;
     display: flex;
     justify-content: space-around;
-}
-
-.usercount{
-    width: 300px;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    text-align: center;
     flex-direction: column;
-    gap: 20px;
-    border: 1px solid red;
-    border-radius: 20px;
-    background-color: #3b3b3b;
-
+   
+  }
+  .usercount{
+    width: 100%;
+  }
 }

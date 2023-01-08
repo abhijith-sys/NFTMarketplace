@@ -198,13 +198,30 @@ function DetailView(props) {
         const priceInEther = ethers.utils.parseUnits(price.toString(), "ether");
         let listingPrice = await contract.getListPrice();
         listingPrice = listingPrice.toString();
+        if("user"==="creator"){
+            contractPriceUpdate(contract,priceInEther,listingPrice)
+        }else{
+            contractReSell(contract,priceInEther,listingPrice)
+        }
+
+    };
+    //approve bid if user is the creator no resell here only price update is working
+    const contractPriceUpdate =async (contract,priceInEther,listingPrice)=>{  
         let transaction = await contract.updatePrice(nft.nftId, priceInEther, {
             value: listingPrice,
         });
         setTrans(await transaction.wait())
-        console.log(trans);
+        console.log(transaction);
+    }
+    //approve bid if user is  not the creator then  resell function will call
 
-    };
+    const contractReSell =async(contract,priceInEther,listingPrice)=>{
+        let transaction = await contract.reSellToken(nft.nftId, priceInEther, {
+            value: listingPrice,
+        });
+        setTrans(await transaction.wait())
+        console.log(transaction)
+    }
     useEffect(() => {
         if (bidapproveData?.bidid&&trans)
             approveBids(bidapproveData);
@@ -253,9 +270,12 @@ function DetailView(props) {
                     const price = ethers.utils.parseUnits(updateNft.price, "ether");
                     let listingPrice = await contract.getListPrice();
                     listingPrice = listingPrice.toString();
-                    let transaction = await contract.updatePrice(nft.nftId, price, {
+                    
+                    let transaction = await contract.reSellToken(nft.nftId, price, {
                         value: listingPrice,
                     });
+                    // if(transaction.)
+                 
                     let trans = await transaction.wait();
                     updateNftDetails(updateNft)
                         .then((response) => {
@@ -293,7 +313,47 @@ function DetailView(props) {
                 setSpinner(false);
             } catch (error) {
                 setSpinner(false);
-                console.log(error);
+                if("execution reverted: Only item owner can perform this operation "===error.error.data.originalError.message){
+                    try {
+                        const provider = new ethers.providers.Web3Provider(window.ethereum);
+                        const signer = provider.getSigner();
+                        let contract = new ethers.Contract(
+                            Marketplace.address,
+                            Marketplace.abi,
+                            signer
+                        );
+                        const price = ethers.utils.parseUnits(updateNft.price, "ether");
+                        let listingPrice = await contract.getListPrice();
+                        listingPrice = listingPrice.toString();
+                        
+                        let transaction = await contract.updatePrice(nft.nftId, price, {
+                            value: listingPrice,
+                        });
+                        let trans = await transaction.wait();
+                        updateNftDetails(updateNft)
+                            .then((response) => {
+                                console.log(response);
+                                getdata();
+                                alert("price updated ");
+                                handleCloseModal();
+                                setIsSubmit(false);
+                                setupdateNft("")
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                setIsSubmit(false);
+                                alert("price not updated ");
+                                setupdateNft("")
+                            });
+                        console.log(trans);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                   
+                }else{
+                console.log(error.error.data.originalError.message);
+
+                }
             }
         };
         if (Object.keys(updateformErrors).length === 0 && isSubmit) {
