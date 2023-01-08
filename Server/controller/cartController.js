@@ -84,6 +84,10 @@ const addToCart = async (req, res) => {
     if (validatorsError.errors.length !== 0) {
       return res.status(400).send(validatorsError.errors[0].msg);
     }
+    const currentUser=await nftModel.findOne({_id:req.body._id,owner:{$ne:req.user}})
+    if(currentUser===null||currentUser==="null"){
+      return res.status(406).send({message:"cannot add your own owned nft",errorCode:721})
+    }
     const val = await userModel.updateOne(
       { _id: req.user, cart: { $ne: req.body._id } },
       { $push: { cart: req.body._id } }

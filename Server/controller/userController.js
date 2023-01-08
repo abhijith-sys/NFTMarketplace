@@ -355,7 +355,12 @@ const getUserById = async (req, res) => {
 };
 const getUserApprovedBids = async (req, res) => {
   const user = await userModel.findById(req.user, { approvedBids: true });
-  res.send(user.approvedBids);
+  const userIdList = user.approvedBids.map((obj) => {
+    return obj._id;
+  });
+  const nftDetail =await nftModel.find({"bids._id":{$in:userIdList}},{nftName:1,image:1,description:1,price:1})
+
+  res.send(nftDetail);
 };
 
 const addLinks = async (req, res) => {

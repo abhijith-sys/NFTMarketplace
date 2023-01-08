@@ -105,7 +105,7 @@ const newitemadded=()=>{
           nftdetails={data.nft}
           username={data?.nft?.owner.name ? data?.nft?.owner?.name : "unnamed"}
           userprofile={data.nft?.owner?.profile_photo ? data.nft?.owner?.profile_photo : "nill"}
-          userId={data?.nft?.owner?._id}
+          // userId={data?.nft?.owner?._id}
         />
       ))}
           <SpinnerDotted
