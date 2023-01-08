@@ -71,7 +71,7 @@ tbody tr:nth-child(odd) {
   max-width: 40%;
   min-width: 315px;
   min-height: 400px;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 40px;
   overflow: hidden;
   border-radius: 20px;

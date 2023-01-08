@@ -234,7 +234,7 @@ useEffect(()=>{
         src={props.nftdetails.image ? props.nftdetails.image : img1}
         alt=""
         onClick={() => {
-          handleClick(props.userId ? props.userId : props.nftdetails._id);
+          handleClick( props.nftdetails._id);
         }}
       />
       <div className={card.trendingCardContent}>
