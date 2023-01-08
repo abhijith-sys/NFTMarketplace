@@ -77,6 +77,18 @@ const getUserCart = async (req, res) => {
     res.status(404).send({ message: error.message });
   }
 };
+const getUserCartIds=async (req,res)=>{
+  try {
+    const validatorsError = validationResult(req);
+    if (validatorsError.errors.length !== 0) {
+      return res.status(400).send(validatorsError.errors[0].msg);
+    }
+    const cartItem = await userModel.findById(req.user).select("cart")
+    res.send(cartItem);
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+}
 //to add nft to the cart
 const addToCart = async (req, res) => {
   try {
@@ -119,5 +131,18 @@ const deleteCartItem = async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 };
-
-module.exports = { getUserCart, addToCart, deleteCartItem };
+const checkOutCart = async (req, res) => {
+  try {
+    const userCart = await userModel.findById(req.user, { cart: true });
+    userCart.cart.forEach(async (cart) => {
+      const nft = await nftModel.findById(cart, { owner: true });
+      nft.owner = req.user;
+      nft.save();
+    });
+    await userModel.updateOne({ _id: req.user }, { $set: { cart: [] } });
+    res.send(userCart);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+};
+module.exports = { getUserCart, addToCart, deleteCartItem,getUserCartIds,checkOutCart };

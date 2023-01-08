@@ -14,7 +14,7 @@ const {
   getUserById,
   getUserApprovedBids,
   addLinks,
-  checkOutCart
+
 } = require("../controller/userController.js");
 const authenticateToken = require("../middleware/auth");
 const validateExpression = require("../middleware/Validators/UserValidator.js");
@@ -62,7 +62,7 @@ router.get("/getUserCreatedNft", authenticateToken, validateExpression("commonGe
 );
 router.get("/getTopTrendingNftCollection", getTopTrendingNftCollection);
 router.get("/approvedBids", authenticateToken, getUserApprovedBids)
-router.post("/checkout",authenticateToken,checkOutCart)
+
 
 router.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {

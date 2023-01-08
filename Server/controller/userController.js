@@ -402,20 +402,7 @@ const addLinks = async (req, res) => {
   }
 };
 
-const checkOutCart = async (req, res) => {
-  try {
-    const userCart = await userModel.findById(req.user, { cart: true });
-    userCart.cart.forEach(async (cart) => {
-      const nft = await nftModel.findById(cart, { owner: true });
-      nft.owner = req.user;
-      nft.save();
-    });
-    await userModel.updateOne({ _id: req.user }, { $set: { cart: [] } });
-    res.send(userCart);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-};
+
 
 module.exports = {
   getNonce,
@@ -432,5 +419,4 @@ module.exports = {
   getUserById,
   getUserApprovedBids,
   addLinks,
-  checkOutCart,
 };
