@@ -51,10 +51,10 @@ const listNft = async (req, res) => {
       nftDetails.push({ nft, cart, wishList })
     })
     const hasNext = nftDetails.length > limit
-    let paginatedArray = paginate(nftDetails,limit,page);
-    res.send({docs:paginatedArray,hasNext});
+    let paginatedArray = paginate(nftDetails, limit, page);
+    res.send({ docs: paginatedArray, hasNext });
   } catch (error) {
-    res.status(500).send({message:error.message});
+    res.status(500).send({ message: error.message });
   }
 };
 
@@ -81,9 +81,9 @@ function getWishList(nftName, wishList) {
 }
 
 // paginate Array
-function paginate(nftDetails,limit,pageNumber){
+function paginate(nftDetails, limit, pageNumber) {
   --pageNumber;
-  return nftDetails.slice(pageNumber*limit,(pageNumber+1)*limit)
+  return nftDetails.slice(pageNumber * limit, (pageNumber + 1) * limit)
 }
 
 // NFT detailed view
@@ -93,25 +93,6 @@ const detailView = async (req, res) => {
     if (error.errors.length != 0) {
       return res.status(500).send(error)
     }
-    // const nft = await nftModel.findById(req.params.id)
-    // nft.bids.sort((a,b)=>{
-    //   return b.price - a.price
-    // });
-    // const userCreatedNft = await userModel
-    //   .find({}, { name: true, profile_photo: true, owned: true, metamaskId: true })
-    //   .populate({ path: "owned" });
-    // userCreatedNft.forEach((user) => {
-    //   user.owned.forEach((ownedNft) => {
-    //     if (nft.nftName == ownedNft.nftName) {
-    //       nftDetails.push({
-    //         nft,
-    //         ownerName: user.name,
-    //         profilePicture: user.profile_photo,
-    //         metamaskId: user.metamaskId
-    //       });
-    //     }
-    //   });
-    // });
     const nft = await nftModel.findById(req.params.id)
       .populate({ path: "owner", select: "name profile_photo metamaskId" });
     nft.bids.sort((a, b) => {
@@ -119,7 +100,7 @@ const detailView = async (req, res) => {
     })
     res.send(nft);
   } catch (error) {
-    res.status(404).send({message:error.message});
+    res.status(404).send({ message: error.message });
   }
 };
 
@@ -202,14 +183,14 @@ const updateNft = async (req, res) => {
 // approve bid
 const approveBid = async (req, res) => {
   try {
-    const error =validationResult(req);
-    if(error.errors.length != 0){
+    const error = validationResult(req);
+    if (error.errors.length != 0) {
       return res.status(400).send(error)
     }
-    const userOwnedNft = await userModel.findOne({ metamaskId:req.query.metamaskId }, { approvedBids: true});
+    const userOwnedNft = await userModel.findOne({ metamaskId: req.query.metamaskId }, { approvedBids: true });
     console.log(userOwnedNft);
     const nftOwner = await nftModel.findById(req.query.id);
-    const nftDetail = await nftModel.findOne({ "bids._id": req.query.bidId },{ bids: true });
+    const nftDetail = await nftModel.findOne({ "bids._id": req.query.bidId }, { bids: true });
     if (nftOwner.owner._id.valueOf() == req.user) {
       nftDetail.bids.forEach((bid, index) => {
         if (bid._id == req.query.bidId) {
@@ -219,7 +200,7 @@ const approveBid = async (req, res) => {
           nftDetail.save();
           let isPresent = userOwnedNft.approvedBids.includes(bid._id);
           if (isPresent === false) {
-            userOwnedNft.approvedBids.push({_id:bid._id,price:req.query.price});
+            userOwnedNft.approvedBids.push({ _id: bid._id, price: req.query.price });
             userOwnedNft.save();
             return res.send("bid approved");
           }
@@ -227,7 +208,7 @@ const approveBid = async (req, res) => {
         res.status(404).send("bid not found")
       });
     }
-    else{
+    else {
       return res.status(403).send("you are not the owner")
     }
   } catch (error) {
@@ -241,13 +222,13 @@ const buyNft = async (req, res) => {
     console.log(req.body);
 
 
-   const newUser= await userModel.findOne(
+    const newUser = await userModel.findOne(
       {
         metamaskId: { $regex: newUserId, $options: "i" },
 
       }
     );
-    await nftModel.updateOne({ _id: nftId }, { owner:newUser._id,status: 0 });
+    await nftModel.updateOne({ _id: nftId }, { owner: newUser._id, status: 0 });
 
     res.send("success");
   } catch (error) {
