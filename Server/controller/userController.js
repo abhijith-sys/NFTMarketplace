@@ -253,11 +253,20 @@ const getTopTrendingNftCollection = async (req, res) => {
           },
         },
         {
+          $project:{
+            nft: {
+              $slice: ["$nft",3],
+            },
+            count:1
+          }
+        },
+        {
           $project: {
             "nft._id": 1,
             "nft.nftId": 1,
             "nft.nftName": 1,
             "nft.image": 1,
+            "nft.owner._id": 1,
             "nft.owner.name": 1,
             "nft.owner.profile_photo": 1,
             "nft.owner.sellCount": 1,
