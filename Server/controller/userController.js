@@ -315,8 +315,6 @@ const getUserCreatedNft = async (req, res) => {
           }},
       {
         $addFields: {
-          name: true,
-          profile_photo: true,
           hasNextPage: {
             $gt: [
               { $size: "$created" },
