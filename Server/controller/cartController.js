@@ -41,6 +41,7 @@ const getUserCart = async (req, res) => {
           "cart.status": 1,
           "cart.price": 1,
           cartTotal: { $sum: "$cart.price" },
+
           "cart.owner._id": 1,
           "cart.owner.name": 1,
           "cart.owner.profile_photo": 1,
@@ -66,6 +67,7 @@ const getUserCart = async (req, res) => {
           cart: {
             $slice: ["$cart", Number(page) * Number(limit), Number(limit)],
           },
+          cartCount: { $size: "$cart" },
         },
       },
     ]);
