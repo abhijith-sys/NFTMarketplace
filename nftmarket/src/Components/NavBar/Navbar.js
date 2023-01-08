@@ -285,7 +285,7 @@ const [count, setfirst] = useContext(cartcoundvalues);
         <></>
       )} 
 
-{sidebar&&<Sidebar/>}
+{/* {sidebar&&<Sidebar/>} */}
 </div>
 </div>
     </>

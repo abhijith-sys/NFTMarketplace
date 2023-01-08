@@ -330,8 +330,9 @@ const Profile = (props) => {
         />
       )}
 
-      <label htmlFor="profile-input">
+    
         <div className={pro.profilePhoto}>
+        <label htmlFor="profile-input">
           <div className={pro.iconbackground}>
             {UserDeatsils && (
               <img className={pro.icon} src={svgprncil} alt="" />
@@ -342,8 +343,9 @@ const Profile = (props) => {
             src={`${imagehosturl}${userdetails?.profile_photo}`}
             alt=""
           />
+              </label>
         </div>
-      </label>
+  
       {UserDeatsils && (
         <input
           id="profile-input"

@@ -201,10 +201,14 @@ function DetailView(props) {
     let listingPrice = await contract.getListPrice();
     listingPrice = listingPrice.toString();
     try {
-      contractReSell(contract, priceInEther, listingPrice);
+        let transaction = await contract.reSellToken(nft.nftId, priceInEther, {
+            value: listingPrice,
+          });
+          setTrans(await transaction.wait());
+          console.log(transaction);
     } catch (error) {
       if (
-        "execution reverted: Only item owner can perform this operation " ===
+        `execution reverted: Only item owner can perform this operation ` ===
         error.error.data.originalError.message
       ) {
         try {
