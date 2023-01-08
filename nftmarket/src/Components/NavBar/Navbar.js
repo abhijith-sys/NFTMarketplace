@@ -115,7 +115,7 @@ const [count, setfirst] = useContext(cartcoundvalues);
     localStorage.removeItem("nft_id");
     ClearUserId();
     setUserId(undefined);
-    // navigate("/userprofile");
+    navigate("/userprofile");
   };
 
   const tohome = () => {

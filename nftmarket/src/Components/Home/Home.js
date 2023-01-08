@@ -75,7 +75,7 @@ export const Home = (props) => {
                 }
                 alt=""
                 onClick={() => {
-                  getUserProfile();
+                  getUserProfile(  Nfts?.length > 0 ? Nfts[Randnft]?.nft.owner?._id : undefined);
                 }}
               />
             </div>
