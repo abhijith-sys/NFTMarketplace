@@ -228,7 +228,7 @@ const getTopTrendingNftCollection = async (req, res) => {
     const limit = 3;
     const users = await userModel
       .find({}, { _id: true })
-      .sort({ sellCount: -1 })
+      .sort({ sellCount: -1,name:1 })
       .limit(limit)
       .lean();
     const collectedNft = await nftModel
@@ -274,7 +274,7 @@ const getTopTrendingNftCollection = async (req, res) => {
           },
         },
         {
-          $sort: { "nft.owner.sellCount": -1 },
+          $sort: { "nft.owner.sellCount": -1,"nft.owner.name": 1, },
         },
         {
           $limit: limit,
@@ -336,7 +336,7 @@ const getTopCreators = async (req, res) => {
   try {
     const users = await userModel
       .find({status:{$ne:1}}, { profile_photo: true, name: true, metamaskId: true ,sellCount:true})
-      .sort({ sellCount: -1 })
+      .sort({ sellCount: -1,name :1})
       .limit(12)
       .lean();
     res.send(users);
